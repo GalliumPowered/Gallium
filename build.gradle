@@ -9,9 +9,12 @@ var mainClass = "net.zenoc.gallium.Main"
 
 repositories {
     mavenCentral()
-    mavenLocal()
+//    mavenLocal()
     maven {
         url "https://libraries.minecraft.net"
+    }
+    maven {
+        url "https://repo.zenoc.net/repository"
     }
 }
 
