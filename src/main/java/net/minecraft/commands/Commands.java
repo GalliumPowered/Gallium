@@ -140,7 +140,7 @@ public class Commands {
         FillCommand.register(this.dispatcher);
         ForceLoadCommand.register(this.dispatcher);
         FunctionCommand.register(this.dispatcher);
-        GameModeCommand.register(this.dispatcher);
+//        GameModeCommand.register(this.dispatcher); // Gallium: Custom gamemode commands
         GameRuleCommand.register(this.dispatcher);
         GiveCommand.register(this.dispatcher);
         HelpCommand.register(this.dispatcher);
