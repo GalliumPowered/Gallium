@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'net.zenoc'
-version = '1.17.1-1.1.0-beta.1'
+version = '1.17.1-1.1.0-beta.2'
 var mainClass = "net.zenoc.gallium.Main"
 
 repositories {
@@ -34,7 +34,7 @@ dependencies {
 //    implementation 'com.mojang:authlib:1.5.25'
     implementation 'io.netty:netty-all:4.1.10.Final'
     implementation 'org.joml:joml:1.10.5'
-    implementation 'net.zenoc.gallium:gallium:1.1.0-beta.1'
+    implementation 'net.zenoc.gallium:gallium:1.1.0-beta.2'
     implementation 'net.minecraft:server:1.17.1'
     implementation 'com.github.oshi:oshi-core:6.2.2'
     implementation 'commons-io:commons-io:2.11.0'

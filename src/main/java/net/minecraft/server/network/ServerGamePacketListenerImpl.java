@@ -162,6 +162,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.zenoc.gallium.api.event.player.PlayerChatEvent;
 import net.zenoc.gallium.api.event.player.PlayerDisconnectEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -1141,9 +1142,17 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
                 String string2 = filteredText.getFiltered();
                 Component component = string2.isEmpty() ? null : new TranslatableComponent("chat.type.text", new Object[]{this.player.getDisplayName(), string2});
                 Component component2 = new TranslatableComponent("chat.type.text", new Object[]{this.player.getDisplayName(), string});
+
+                // Gallium start: chat event
+                PlayerChatEvent chatEvent = (PlayerChatEvent) new PlayerChatEvent(new net.zenoc.gallium.api.world.entity.Player(this.player), string2).call();
+                LOGGER.debug("Chat");
+                if (chatEvent.isCancelled()) return;
+
+                // TODO: Custom chat format in config
                 this.server.getPlayerList().broadcastMessage(component2, (serverPlayer) -> {
                     return this.player.shouldFilterMessageTo(serverPlayer) ? component : component2;
                 }, ChatType.CHAT, this.player.getUUID());
+                // Gallium end
             }
 
             this.chatSpamTickCount += 20;
