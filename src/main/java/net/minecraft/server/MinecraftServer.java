@@ -623,7 +623,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
     public void stopServer() {
         // Gallium start
         new ServerShutdownEvent("I haven't added the reason part of this yet").call();
-//        Gallium.getPluginManager().unloadPlugins();
+        Gallium.getPluginManager().unloadPlugins();
         // Gallium end
 
         LOGGER.info("Stopping server");
