@@ -51,6 +51,7 @@ public class Mod extends Gallium {
         this.bannedPlayersFile = new File("data/banned-players.json");
         this.opListFile = new File("data/ops.json");
         this.whitelistFile = new File("data/whitelist.json");
+        this.pluginConfigDirectory = new File("config/");
 
         try {
             database.addGroupsToGroupManager(groupManager);

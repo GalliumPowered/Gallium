@@ -156,7 +156,9 @@ import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.PredicateManager;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.Mod;
+import net.zenoc.gallium.api.event.system.ServerShutdownEvent;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -619,6 +621,11 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
     }
 
     public void stopServer() {
+        // Gallium start
+        new ServerShutdownEvent("I haven't added the reason part of this yet").call();
+        Gallium.getPluginManager().unloadPlugins();
+        // Gallium end
+
         LOGGER.info("Stopping server");
         if (this.getConnection() != null) {
             this.getConnection().stop();

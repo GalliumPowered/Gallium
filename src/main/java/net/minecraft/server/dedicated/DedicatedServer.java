@@ -68,8 +68,6 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.event.system.ServerStartEvent;
-import net.zenoc.gallium.plugin.Plugin;
-import net.zenoc.gallium.plugin.PluginBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -89,16 +87,6 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
     private final TextFilterClient textFilterClient;
     @Nullable
     private final Component resourcePackPrompt;
-
-    // Gallium start: internal Minecraft plugin
-    // TODO: Use this for Minecraft's default commands
-    public Plugin plugin = new PluginBuilder()
-            .setName("Minecraft")
-            .setId("minecraft")
-            .setVersion(getServerVersion())
-            .addAuthor("Mojang")
-            .build();
-    // Gallium end
 
     public DedicatedServer(Thread thread, RegistryAccess.RegistryHolder registryHolder, LevelStorageSource.LevelStorageAccess levelStorageAccess, PackRepository packRepository, ServerResources serverResources, WorldData worldData, DedicatedServerSettings dedicatedServerSettings, DataFixer dataFixer, MinecraftSessionService minecraftSessionService, GameProfileRepository gameProfileRepository, GameProfileCache gameProfileCache, ChunkProgressListenerFactory chunkProgressListenerFactory) {
         super(thread, registryHolder, levelStorageAccess, worldData, packRepository, Proxy.NO_PROXY, dataFixer, serverResources, minecraftSessionService, gameProfileRepository, gameProfileCache, chunkProgressListenerFactory);
@@ -192,7 +180,6 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
             SkullBlockEntity.setMainThreadExecutor(this);
             GameProfileCache.setUsesAuthentication(this.usesAuthentication());
             Gallium.loadPlugins(); // Gallium
-            Gallium.getPluginManager().loadPlugin(plugin);
             LOGGER.info("Preparing level \"{}\"", this.getLevelIdName());
             this.loadLevel();
             long m = Util.getNanos() - l;
