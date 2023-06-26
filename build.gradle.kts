@@ -37,10 +37,12 @@ dependencies {
     implementation("net.kyori:adventure-text-serializer-gson:4.2.0")
     implementation("org.xerial:sqlite-jdbc:3.42.0.0")
     implementation("org.json:json:20230618")
-    implementation("net.zenoc.gallium:gallium:1.1.0-beta.2")
     implementation("com.github.oshi:oshi-core:6.2.2")
     implementation("commons-io:commons-io:2.11.0")
     implementation("net.java.dev.jna:jna:5.12.1")
+
+    // GalliumLib
+    implementation(project(":GalliumLib"))
 
     // TODO: Mixin, don't use this
     // ALSO TODO: 1.20
