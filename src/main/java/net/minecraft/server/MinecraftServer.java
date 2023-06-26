@@ -309,6 +309,8 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
         this.structureManager = new StructureManager(serverResources.getResourceManager(), levelStorageAccess, dataFixer);
         this.serverThread = thread;
         this.executor = Util.backgroundExecutor();
+
+        Mod.setMinecraftServer(this);
     }
 
     private void readScoreboard(DimensionDataStorage dimensionDataStorage) {
@@ -701,7 +703,6 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
     }
 
     protected void runServer() {
-        Mod.setNMS(this); // Gallium
         try {
             if (this.initServer()) {
                 this.nextTickTime = Util.getMillis();

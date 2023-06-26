@@ -164,6 +164,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.zenoc.gallium.api.event.player.PlayerChatEvent;
 import net.zenoc.gallium.api.event.player.PlayerDisconnectEvent;
+import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1065,7 +1066,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
         LOGGER.info("{} lost connection: {}", this.player.getName().getString(), component.getString());
         this.server.invalidateStatus();
         // Gallium start: player disconnect event
-        PlayerDisconnectEvent event = (PlayerDisconnectEvent) new PlayerDisconnectEvent(new net.zenoc.gallium.api.world.entity.Player(player)).call();
+        PlayerDisconnectEvent event = (PlayerDisconnectEvent) new PlayerDisconnectEvent(new PlayerImpl(player)).call();
         if (!event.isSuppressed()) {
             this.server.getPlayerList().broadcastMessage((new TranslatableComponent("multiplayer.player.left", new Object[]{this.player.getDisplayName()})).withStyle(ChatFormatting.YELLOW), ChatType.SYSTEM, Util.NIL_UUID);
         }
@@ -1144,7 +1145,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
                 Component component2 = new TranslatableComponent("chat.type.text", new Object[]{this.player.getDisplayName(), string});
 
                 // Gallium start: chat event
-                PlayerChatEvent chatEvent = (PlayerChatEvent) new PlayerChatEvent(new net.zenoc.gallium.api.world.entity.Player(this.player), string2).call();
+                PlayerChatEvent chatEvent = (PlayerChatEvent) new PlayerChatEvent(new PlayerImpl(this.player), string2).call();
                 LOGGER.debug("Chat");
                 if (chatEvent.isCancelled()) return;
 

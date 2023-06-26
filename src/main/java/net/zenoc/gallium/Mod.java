@@ -1,5 +1,6 @@
 package net.zenoc.gallium;
 
+import net.minecraft.server.MinecraftServer;
 import net.zenoc.gallium.Config;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.commandsys.CommandManager;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 public class Mod extends Gallium {
     public static final Logger log = LogManager.getLogger();
     public static Config config;
+    private static MinecraftServer minecraftServer;
 
     /**
      * Makes a new Gallium
@@ -40,6 +42,9 @@ public class Mod extends Gallium {
             return;
         }
 
+        this.nmsBridge = new BridgeImpl();
+        this.server = new ServerImpl();
+
         this.commandManager = new CommandManager();
         this.permissionManager = new PermissionManager();
         this.groupManager = new GroupManager();
@@ -60,6 +65,14 @@ public class Mod extends Gallium {
         }
 
         Gallium.renameDefaultFiles();
+    }
+
+    public static void setMinecraftServer(MinecraftServer server) {
+        minecraftServer = server;
+    }
+
+    public static MinecraftServer getMinecraftServer() {
+        return minecraftServer;
     }
 }
 
