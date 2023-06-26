@@ -1,0 +1,3 @@
+[submodule "GalliumLib"]
+	path = GalliumLib
+	url = git@github.com:GalliumPowered/GalliumLib
