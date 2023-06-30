@@ -40,6 +40,8 @@ dependencies {
     implementation("com.github.oshi:oshi-core:6.2.2")
     implementation("commons-io:commons-io:2.11.0")
     implementation("net.java.dev.jna:jna:5.12.1")
+    implementation("com.google.guava:guava:32.0.1-jre")
+    implementation("com.google.inject:guice:7.0.0")
 
     // GalliumLib
     implementation(project(":GalliumLib"))
