@@ -53,6 +53,6 @@ public class PlayerImpl implements Player {
 
     @Override
     public String getName() {
-        return serverPlayer.getName().toString().strip();
+        return serverPlayer.getName().getContents().strip();
     }
 }
