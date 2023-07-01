@@ -1,11 +1,11 @@
 package net.zenoc.gallium.api.world.entity.player;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import net.zenoc.gallium.api.Gamemode;
-import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.util.TextTransformer;
 
@@ -22,17 +22,17 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void sendMessage(ChatMessage chatMessage) {
-        serverPlayer.sendMessage(TextTransformer.toMinecraft(Component.text(chatMessage.getContent())), Util.NIL_UUID);
+    public void sendMessage(Component component) {
+        serverPlayer.sendMessage(TextTransformer.toMinecraft(component), Util.NIL_UUID);
     }
 
     @Override
-    public void disconnect(@Nullable ChatMessage chatMessage) {
-        net.minecraft.network.chat.Component component = TextTransformer.toMinecraft(Component.text(chatMessage.getContent()));
-        if (chatMessage == null) {
+    public void disconnect(@Nullable Component component) {
+        net.minecraft.network.chat.Component mc = TextTransformer.toMinecraft(component);
+        if (component == null) {
             serverPlayer.disconnect();
         } else {
-            serverPlayer.connection.disconnect(component);
+            serverPlayer.connection.disconnect(mc);
         }
     }
 
