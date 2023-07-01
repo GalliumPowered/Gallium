@@ -1,8 +1,7 @@
 package net.zenoc.gallium;
 
 import net.minecraft.server.MinecraftServer;
-import net.zenoc.gallium.Config;
-import net.zenoc.gallium.Gallium;
+import net.zenoc.gallium.bridge.BridgeImpl;
 import net.zenoc.gallium.commandsys.CommandManager;
 import net.zenoc.gallium.database.Database;
 import net.zenoc.gallium.event.EventDispatcherImpl;
