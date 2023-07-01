@@ -11,7 +11,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.Mod;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
 import net.zenoc.gallium.commandsys.*;
 import net.zenoc.gallium.exceptions.CommandException;

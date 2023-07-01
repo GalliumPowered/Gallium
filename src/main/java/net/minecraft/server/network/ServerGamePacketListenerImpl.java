@@ -146,6 +146,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CommandBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -162,9 +163,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.zenoc.gallium.api.event.player.PlayerBreakBlockEvent;
 import net.zenoc.gallium.api.event.player.PlayerChatEvent;
 import net.zenoc.gallium.api.event.player.PlayerDisconnectEvent;
 import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
+import net.zenoc.gallium.world.block.BlockImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1146,7 +1149,6 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
 
                 // Gallium start: chat event
                 PlayerChatEvent chatEvent = (PlayerChatEvent) new PlayerChatEvent(new PlayerImpl(this.player), string2).call();
-                LOGGER.debug("Chat");
                 if (chatEvent.isCancelled()) return;
 
                 // TODO: Custom chat format in config

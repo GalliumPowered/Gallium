@@ -1,7 +1,7 @@
 package net.zenoc.gallium.commandsys;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
 
 import javax.annotation.Nullable;

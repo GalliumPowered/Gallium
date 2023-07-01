@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import net.zenoc.gallium.api.Gamemode;
 import net.zenoc.gallium.api.chat.ChatMessage;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.util.TextTransformer;
 
 import javax.annotation.Nullable;

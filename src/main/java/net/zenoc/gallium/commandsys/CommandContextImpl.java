@@ -1,7 +1,6 @@
 package net.zenoc.gallium.commandsys;
 
-import net.minecraft.server.level.ServerPlayer;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.annotation.Nullable;

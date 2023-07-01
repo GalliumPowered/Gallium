@@ -1,7 +1,6 @@
 package net.zenoc.gallium;
 
-import net.minecraft.server.Main;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
 
 import java.util.ArrayList;
