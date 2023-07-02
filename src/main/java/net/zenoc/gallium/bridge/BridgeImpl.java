@@ -30,35 +30,29 @@ import java.util.concurrent.atomic.AtomicReference;
 public class BridgeImpl implements NMSBridge {
     @Override
     public void registerCommand(String alias, String permission) {
-        Mod.getMinecraftServer().getCommands().getDispatcher().register(LiteralArgumentBuilder.<CommandSourceStack>literal(alias)
-                .requires(commandSourceStack -> {
-                    if (commandSourceStack.getDisplayName().getContents().equals("Server")) {
-                        return true;
-                    } else {
-                        ServerPlayer serverPlayer;
-                        try {
-                            serverPlayer = commandSourceStack.getPlayerOrException();
-                        } catch (CommandSyntaxException e) {
-                            throw new RuntimeException(e);
-                        }
-                        return Gallium.getPermissionManager().playerHasPermission(
-                                new PlayerImpl(serverPlayer),
-                                permission
-                        );
-                    }
-                })
-                .executes(this::executeCommand)
-                .then(
+        LiteralArgumentBuilder node = createNodeBuilder(alias, permission);
+                node.then(
                         RequiredArgumentBuilder.<CommandSourceStack, String>argument("arguments", StringArgumentType.greedyString())
                         .suggests(this::suggest)
                         .executes(this::executeCommand)
-                )
-        );
-
+                );
+        Mod.getMinecraftServer().getCommands().getDispatcher().register(node);
     }
 
     @Override
     public void registerCommand(String alias, String permission, Args[] args) {
+        LiteralArgumentBuilder node = createNodeBuilder(alias, permission);
+
+        for (Args arg : args) {
+            node.then(RequiredArgumentBuilder.<CommandSourceStack, String>argument(arg.name(), ArgsTypeTranslator.getAsMinecraft(arg.type()))
+                    .suggests(this::suggest)
+                    .executes(this::executeCommand)
+            );
+        }
+        Mod.getMinecraftServer().getCommands().getDispatcher().register(node);
+    }
+
+    private LiteralArgumentBuilder createNodeBuilder(String alias, String permission) {
         LiteralArgumentBuilder node = LiteralArgumentBuilder.<CommandSourceStack>literal(alias)
                 .requires(commandSourceStack -> {
                     if (commandSourceStack.getDisplayName().getContents().equals("Server")) {
@@ -78,13 +72,7 @@ public class BridgeImpl implements NMSBridge {
                 })
                 .executes(this::executeCommand);
 
-        for (Args arg : args) {
-            node.then(RequiredArgumentBuilder.<CommandSourceStack, String>argument(arg.name(), ArgsTypeTranslator.getAsMinecraft(arg.type()))
-                    .suggests(this::suggest)
-                    .executes(this::executeCommand)
-            );
-        }
-        Mod.getMinecraftServer().getCommands().getDispatcher().register(node);
+        return node;
     }
 
     private CompletableFuture<Suggestions> suggest(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder suggestionsBuilder) {
