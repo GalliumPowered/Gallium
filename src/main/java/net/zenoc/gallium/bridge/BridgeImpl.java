@@ -7,10 +7,15 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import com.mojang.brigadier.tree.ArgumentCommandNode;
+import com.mojang.brigadier.tree.CommandNode;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.Mod;
+import net.zenoc.gallium.api.annotations.Args;
+import net.zenoc.gallium.commandsys.args.ArgsTypeTranslator;
 import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
 import net.zenoc.gallium.commandsys.*;
@@ -43,13 +48,43 @@ public class BridgeImpl implements NMSBridge {
                     }
                 })
                 .executes(this::executeCommand)
-                // TODO: Command suggestion for args
-                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("arguments", StringArgumentType.greedyString())
+                .then(
+                        RequiredArgumentBuilder.<CommandSourceStack, String>argument("arguments", StringArgumentType.greedyString())
                         .suggests(this::suggest)
                         .executes(this::executeCommand)
                 )
         );
 
+    }
+
+    @Override
+    public void registerCommand(String alias, String permission, Args[] args) {
+        LiteralArgumentBuilder node = LiteralArgumentBuilder.<CommandSourceStack>literal(alias)
+                .requires(commandSourceStack -> {
+                    if (commandSourceStack.getDisplayName().getContents().equals("Server")) {
+                        return true;
+                    } else {
+                        ServerPlayer serverPlayer;
+                        try {
+                            serverPlayer = commandSourceStack.getPlayerOrException();
+                        } catch (CommandSyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
+                        return Gallium.getPermissionManager().playerHasPermission(
+                                new PlayerImpl(serverPlayer),
+                                permission
+                        );
+                    }
+                })
+                .executes(this::executeCommand);
+
+        for (Args arg : args) {
+            node.then(RequiredArgumentBuilder.<CommandSourceStack, String>argument(arg.name(), ArgsTypeTranslator.getAsMinecraft(arg.type()))
+                    .suggests(this::suggest)
+                    .executes(this::executeCommand)
+            );
+        }
+        Mod.getMinecraftServer().getCommands().getDispatcher().register(node);
     }
 
     private CompletableFuture<Suggestions> suggest(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder suggestionsBuilder) {
@@ -80,7 +115,7 @@ public class BridgeImpl implements NMSBridge {
             }
 
             String[] input = Arrays.copyOfRange(args, 1, args.length);
-            for (String suggestion : command.suggest(new CommandContextImpl(caller, args))) {
+            for (String suggestion : command.suggest(new CommandContextImpl(caller, args, ctx))) {
                 builder.suggest(suggestion);
             }
 
@@ -126,7 +161,7 @@ public class BridgeImpl implements NMSBridge {
             } catch (CommandSyntaxException e) {
                 caller = new CommandCallerImpl(null);
             }
-            method.invoke(command.get().getCaller(), new CommandContextImpl(caller, args));
+            method.invoke(command.get().getCaller(), new CommandContextImpl(caller, args, ctx));
         } catch (Exception e) {
             throw new CommandException(e);
         }
