@@ -27,9 +27,9 @@ import net.minecraft.world.level.block.GameMasterBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.zenoc.gallium.api.event.player.PlayerBreakBlockEvent;
-import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
-import net.zenoc.gallium.world.block.BlockImpl;
+import org.galliumpowered.api.event.player.PlayerBreakBlockEvent;
+import org.galliumpowered.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.world.block.WorldBlockImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -245,7 +245,7 @@ public class ServerPlayerGameMode {
                 boolean bl = this.level.removeBlock(blockPos, false);
                 if (bl) {
                     // Gallium start: block break event
-                    PlayerBreakBlockEvent event = (PlayerBreakBlockEvent) new PlayerBreakBlockEvent(new PlayerImpl(player), new BlockImpl(block)).call();
+                    PlayerBreakBlockEvent event = (PlayerBreakBlockEvent) new PlayerBreakBlockEvent(new PlayerImpl(player), new WorldBlockImpl(block, blockPos)).call();
                     if (!event.isCancelled) {
                         block.destroy(this.level, blockPos, blockState);
                     }

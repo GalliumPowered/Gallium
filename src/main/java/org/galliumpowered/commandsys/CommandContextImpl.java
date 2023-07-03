@@ -1,6 +1,6 @@
-package net.zenoc.gallium.commandsys;
+package org.galliumpowered.commandsys;
 
-import net.zenoc.gallium.world.entity.Player;
+import org.galliumpowered.world.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.annotation.Nullable;

@@ -1,15 +1,15 @@
-package net.zenoc.gallium;
+package org.galliumpowered;
 
 import net.minecraft.server.MinecraftServer;
-import net.zenoc.gallium.bridge.BridgeImpl;
-import net.zenoc.gallium.commandsys.CommandManager;
-import net.zenoc.gallium.database.Database;
-import net.zenoc.gallium.event.EventDispatcherImpl;
-import net.zenoc.gallium.eventsys.EventManager;
-import net.zenoc.gallium.exceptions.GalliumDatabaseException;
-import net.zenoc.gallium.permissionsys.GroupManager;
-import net.zenoc.gallium.permissionsys.PermissionManager;
-import net.zenoc.gallium.plugin.PluginManager;
+import org.galliumpowered.bridge.BridgeImpl;
+import org.galliumpowered.commandsys.CommandManager;
+import org.galliumpowered.database.Database;
+import org.galliumpowered.event.EventDispatcherImpl;
+import org.galliumpowered.eventsys.EventManager;
+import org.galliumpowered.exceptions.GalliumDatabaseException;
+import org.galliumpowered.permissionsys.GroupManager;
+import org.galliumpowered.permissionsys.PermissionManager;
+import org.galliumpowered.plugin.PluginManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

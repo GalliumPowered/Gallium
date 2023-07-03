@@ -5,7 +5,7 @@ plugins {
 
 group = "net.zenoc"
 version = "1.17.1-1.1.0-beta.3"
-var mainClass = "net.zenoc.gallium.Main"
+var mainClass = "org.galliumpowered.Main"
 
 repositories {
     mavenCentral()

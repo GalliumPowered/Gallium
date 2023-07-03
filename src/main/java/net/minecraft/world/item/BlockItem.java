@@ -37,9 +37,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.zenoc.gallium.api.event.player.PlayerPlaceBlockEvent;
-import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
-import net.zenoc.gallium.world.block.BlockImpl;
+import org.galliumpowered.api.event.player.PlayerPlaceBlockEvent;
+import org.galliumpowered.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.world.block.BlockImpl;
 
 public class BlockItem extends Item {
     public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";

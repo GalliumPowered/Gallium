@@ -1,17 +1,14 @@
-package net.zenoc.gallium.event;
+package org.galliumpowered.event;
 
-import net.zenoc.gallium.Gallium;
-import net.zenoc.gallium.api.event.Event;
-import net.zenoc.gallium.eventsys.EventDispatcher;
-import net.zenoc.gallium.eventsys.EventManager;
-import net.zenoc.gallium.eventsys.MListener;
+import org.galliumpowered.Gallium;
+import org.galliumpowered.api.event.Event;
+import org.galliumpowered.eventsys.EventDispatcher;
+import org.galliumpowered.eventsys.EventManager;
+import org.galliumpowered.eventsys.MListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.EventListener;
-import java.util.Iterator;
 
 public class EventDispatcherImpl implements EventDispatcher {
     private static final Logger log = LogManager.getLogger();

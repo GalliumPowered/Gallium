@@ -26,7 +26,6 @@ import net.minecraft.CrashReport;
 import net.minecraft.DefaultUncaughtExceptionHandler;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
-import net.minecraft.advancements.critereon.PlayerInteractTrigger;
 import net.minecraft.commands.Commands.CommandSelection;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
@@ -59,7 +58,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelSummary;
 import net.minecraft.world.level.storage.PrimaryLevelData;
 import net.minecraft.world.level.storage.WorldData;
-import net.zenoc.gallium.Gallium;
+import org.galliumpowered.Gallium;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

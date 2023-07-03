@@ -97,9 +97,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Team;
-import net.zenoc.gallium.Gallium;
-import net.zenoc.gallium.api.event.player.PlayerJoinEvent;
-import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.Gallium;
+import org.galliumpowered.api.event.player.PlayerJoinEvent;
+import org.galliumpowered.api.world.entity.player.PlayerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -205,7 +205,7 @@ public abstract class PlayerList {
         }
 
         // Gallium start: player join event
-        net.zenoc.gallium.world.entity.Player player = new PlayerImpl(serverPlayer);
+        org.galliumpowered.world.entity.Player player = new PlayerImpl(serverPlayer);
         PlayerJoinEvent event = (PlayerJoinEvent) new PlayerJoinEvent(player).call();
         if (event.isCancelled()) {
             player.disconnect();

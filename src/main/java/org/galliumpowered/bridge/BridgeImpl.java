@@ -1,4 +1,4 @@
-package net.zenoc.gallium.bridge;
+package org.galliumpowered.bridge;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -7,19 +7,19 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import com.mojang.brigadier.tree.ArgumentCommandNode;
-import com.mojang.brigadier.tree.CommandNode;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerPlayer;
-import net.zenoc.gallium.Gallium;
-import net.zenoc.gallium.Mod;
-import net.zenoc.gallium.api.annotations.Args;
-import net.zenoc.gallium.commandsys.args.ArgsTypeTranslator;
-import net.zenoc.gallium.world.entity.Player;
-import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
-import net.zenoc.gallium.commandsys.*;
-import net.zenoc.gallium.exceptions.CommandException;
+import org.galliumpowered.Gallium;
+import org.galliumpowered.Mod;
+import org.galliumpowered.api.annotations.Args;
+import org.galliumpowered.commandsys.args.ArgsTypeTranslator;
+import org.galliumpowered.world.entity.Player;
+import org.galliumpowered.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.exceptions.CommandException;
+import org.galliumpowered.commandsys.CommandCaller;
+import org.galliumpowered.commandsys.CommandCallerImpl;
+import org.galliumpowered.commandsys.CommandContextImpl;
+import org.galliumpowered.commandsys.MCommand;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package net.zenoc.gallium.util;
+package org.galliumpowered.util;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;

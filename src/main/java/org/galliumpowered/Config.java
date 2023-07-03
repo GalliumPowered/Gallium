@@ -1,4 +1,4 @@
-package net.zenoc.gallium;
+package org.galliumpowered;
 
 import java.io.File;
 import java.io.FileReader;

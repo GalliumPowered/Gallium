@@ -1,7 +1,7 @@
-package net.zenoc.gallium;
+package org.galliumpowered;
 
-import net.zenoc.gallium.world.entity.Player;
-import net.zenoc.gallium.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.world.entity.Player;
+import org.galliumpowered.api.world.entity.player.PlayerImpl;
 
 import java.util.ArrayList;
 

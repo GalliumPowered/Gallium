@@ -1,7 +1,4 @@
-package net.zenoc.gallium.world.block;
-
-import net.minecraft.core.Registry;
-import net.minecraft.world.level.block.Blocks;
+package org.galliumpowered.world.block;
 
 public class BlockImpl implements Block {
     private net.minecraft.world.level.block.Block nmsBlock;

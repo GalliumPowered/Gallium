@@ -1,13 +1,12 @@
-package net.zenoc.gallium.api.world.entity.player;
+package org.galliumpowered.api.world.entity.player;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.HoverEvent;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
-import net.zenoc.gallium.api.Gamemode;
-import net.zenoc.gallium.world.entity.Player;
-import net.zenoc.gallium.util.TextTransformer;
+import org.galliumpowered.api.Gamemode;
+import org.galliumpowered.world.entity.Player;
+import org.galliumpowered.util.TextTransformer;
 
 import javax.annotation.Nullable;
 
