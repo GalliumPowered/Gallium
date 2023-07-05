@@ -1,10 +1,10 @@
-package org.galliumpowered.api.world.entity.player;
+package org.galliumpowered.world.entity;
 
 import net.kyori.adventure.text.Component;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
-import org.galliumpowered.api.Gamemode;
+import org.galliumpowered.Gamemode;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.util.TextTransformer;
 

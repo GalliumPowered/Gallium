@@ -101,7 +101,7 @@ import net.minecraft.server.commands.WhitelistCommand;
 import net.minecraft.server.commands.WorldBorderCommand;
 import net.minecraft.server.commands.data.DataCommands;
 import net.minecraft.server.level.ServerPlayer;
-import org.galliumpowered.api.chat.Colors;
+import org.galliumpowered.chat.Colors;
 import org.galliumpowered.util.TextTransformer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

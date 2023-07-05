@@ -67,7 +67,7 @@ import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.event.system.ServerStartEvent;
+import org.galliumpowered.event.system.ServerStartEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

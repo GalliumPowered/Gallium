@@ -1,10 +1,6 @@
 package org.galliumpowered.event;
 
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.event.Event;
-import org.galliumpowered.eventsys.EventDispatcher;
-import org.galliumpowered.eventsys.EventManager;
-import org.galliumpowered.eventsys.MListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

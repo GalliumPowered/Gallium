@@ -37,8 +37,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import org.galliumpowered.api.event.player.PlayerPlaceBlockEvent;
-import org.galliumpowered.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.event.player.PlayerPlaceBlockEvent;
+import org.galliumpowered.world.entity.PlayerImpl;
 import org.galliumpowered.world.block.BlockImpl;
 
 public class BlockItem extends Item {

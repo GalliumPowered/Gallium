@@ -2,13 +2,13 @@ package org.galliumpowered;
 
 import net.minecraft.server.MinecraftServer;
 import org.galliumpowered.bridge.BridgeImpl;
-import org.galliumpowered.commandsys.CommandManager;
+import org.galliumpowered.command.CommandManager;
 import org.galliumpowered.database.Database;
 import org.galliumpowered.event.EventDispatcherImpl;
-import org.galliumpowered.eventsys.EventManager;
+import org.galliumpowered.event.EventManager;
 import org.galliumpowered.exceptions.GalliumDatabaseException;
-import org.galliumpowered.permissionsys.GroupManager;
-import org.galliumpowered.permissionsys.PermissionManager;
+import org.galliumpowered.permission.GroupManager;
+import org.galliumpowered.permission.PermissionManager;
 import org.galliumpowered.plugin.PluginManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

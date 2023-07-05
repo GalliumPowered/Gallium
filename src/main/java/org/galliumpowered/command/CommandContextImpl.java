@@ -1,4 +1,4 @@
-package org.galliumpowered.commandsys;
+package org.galliumpowered.command;
 
 import org.galliumpowered.world.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;

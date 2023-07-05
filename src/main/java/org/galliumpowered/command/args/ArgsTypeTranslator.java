@@ -1,4 +1,4 @@
-package org.galliumpowered.commandsys.args;
+package org.galliumpowered.command.args;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 

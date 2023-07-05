@@ -158,7 +158,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.Mod;
-import org.galliumpowered.api.event.system.ServerShutdownEvent;
+import org.galliumpowered.event.system.ServerShutdownEvent;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

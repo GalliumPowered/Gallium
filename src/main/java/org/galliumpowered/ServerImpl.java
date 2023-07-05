@@ -1,7 +1,7 @@
 package org.galliumpowered;
 
 import org.galliumpowered.world.entity.Player;
-import org.galliumpowered.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.world.entity.PlayerImpl;
 
 import java.util.ArrayList;
 

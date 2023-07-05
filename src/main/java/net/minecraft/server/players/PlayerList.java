@@ -98,8 +98,8 @@ import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Team;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.event.player.PlayerJoinEvent;
-import org.galliumpowered.api.world.entity.player.PlayerImpl;
+import org.galliumpowered.event.player.PlayerJoinEvent;
+import org.galliumpowered.world.entity.PlayerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
