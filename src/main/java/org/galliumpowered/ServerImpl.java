@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public class ServerImpl implements Server {
 
     @Override
-    public int currentPlayerCount() {
+    public int getCurrentPlayerCount() {
         return Mod.getMinecraftServer().getPlayerCount();
     }
 
     @Override
-    public int maxPlayerCount() {
+    public int getMaxPlayerCount() {
         return Mod.getMinecraftServer().getMaxPlayers();
     }
 
