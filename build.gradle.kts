@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "net.zenoc"
-version = "1.17.1-1.1.0-beta.4"
+version = "1.17.1-1.1.0-beta.5"
 var mainClass = "org.galliumpowered.Main"
 
 repositories {
