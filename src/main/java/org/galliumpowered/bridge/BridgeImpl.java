@@ -13,11 +13,11 @@ import org.galliumpowered.Gallium;
 import org.galliumpowered.Mod;
 import org.galliumpowered.annotation.Args;
 import org.galliumpowered.command.args.ArgsTypeTranslator;
+import org.galliumpowered.command.console.ConsoleCommandCaller;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.world.entity.PlayerImpl;
 import org.galliumpowered.exceptions.CommandException;
 import org.galliumpowered.command.CommandCaller;
-import org.galliumpowered.command.CommandCallerImpl;
 import org.galliumpowered.command.CommandContextImpl;
 import org.galliumpowered.command.MCommand;
 
@@ -53,7 +53,8 @@ public class BridgeImpl implements NMSBridge {
     }
 
     private LiteralArgumentBuilder createNodeBuilder(String alias, String permission) {
-        LiteralArgumentBuilder node = LiteralArgumentBuilder.<CommandSourceStack>literal(alias)
+
+        return LiteralArgumentBuilder.<CommandSourceStack>literal(alias)
                 .requires(commandSourceStack -> {
                     if (commandSourceStack.getDisplayName().getContents().equals("Server")) {
                         return true;
@@ -71,8 +72,6 @@ public class BridgeImpl implements NMSBridge {
                     }
                 })
                 .executes(this::executeCommand);
-
-        return node;
     }
 
     private CompletableFuture<Suggestions> suggest(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder suggestionsBuilder) {
@@ -92,14 +91,13 @@ public class BridgeImpl implements NMSBridge {
             }
 
             CommandCaller caller;
+
+            // Really silly code, but it works
+            // TODO: Make this less silly, if possible
             try {
-                try {
-                    caller = new CommandCallerImpl(ctx.getSource().getPlayerOrException());
-                } catch (CommandSyntaxException e) {
-                    caller = new CommandCallerImpl(null);
-                }
-            } catch (Exception e) {
-                throw new CommandException(e);
+                caller = new PlayerImpl(ctx.getSource().getPlayerOrException());
+            } catch (CommandSyntaxException e) {
+                caller = new ConsoleCommandCaller();
             }
 
             String[] input = Arrays.copyOfRange(args, 1, args.length);
@@ -142,12 +140,16 @@ public class BridgeImpl implements NMSBridge {
 
         Method method = command.get().getMethod();
 
+        // Oh my goodness, what is this
         try {
             CommandCaller caller;
+
+            // Really silly code, but it works
+            // TODO: Make this less silly, if possible
             try {
-                caller = new CommandCallerImpl(ctx.getSource().getPlayerOrException());
+                caller = new PlayerImpl(ctx.getSource().getPlayerOrException());
             } catch (CommandSyntaxException e) {
-                caller = new CommandCallerImpl(null);
+                caller = new ConsoleCommandCaller();
             }
             method.invoke(command.get().getCaller(), new CommandContextImpl(caller, args, ctx));
         } catch (Exception e) {

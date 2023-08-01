@@ -9,6 +9,7 @@ import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.util.TextTransformer;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class PlayerImpl implements Player {
     ServerPlayer serverPlayer;
@@ -21,8 +22,18 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public Optional<Player> getPlayer() {
+        return Optional.of(this);
+    }
+
+    @Override
     public void sendMessage(Component component) {
         serverPlayer.sendMessage(TextTransformer.toMinecraft(component), Util.NIL_UUID);
+    }
+
+    @Override
+    public void sendMessage(String message) {
+        this.sendMessage(Component.text(message));
     }
 
     @Override
