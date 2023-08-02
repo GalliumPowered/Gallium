@@ -1,4 +1,4 @@
-![Gallium Logo](./.github/assets/GalliumPowered-Small.png)
+[![Gallium Logo](./.github/assets/GalliumPowered-Small.png)](https://galliumpowered.org)
 --------------------------------------------------------------------------------------------
 [![](https://github.com/GalliumPowered/Gallium/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/GalliumPowered/Gallium/actions)
 [![Discord](https://img.shields.io/discord/850534433274462220.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/nMGg42rnt3)
@@ -12,6 +12,3 @@
 
 ## Developer usage
 * Documentation on plugins can be found on [The wiki](https://wiki.galliumpowered.org)
-
-## Contributing
-TODO: Contributing guidelines and setup
