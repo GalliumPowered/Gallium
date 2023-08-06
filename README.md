@@ -11,4 +11,4 @@
 * Configurations and data will automatically be moved for you
 
 ## Developer usage
-* Documentation on plugins can be found on [The wiki](https://wiki.galliumpowered.org)
+* Documentation on plugins can be found on [the wiki](https://wiki.galliumpowered.org)
