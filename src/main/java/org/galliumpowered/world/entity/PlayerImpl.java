@@ -5,6 +5,8 @@ import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import org.galliumpowered.Gamemode;
+import org.galliumpowered.world.World;
+import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.util.TextTransformer;
 
@@ -59,6 +61,11 @@ public class PlayerImpl implements Player {
     @Override
     public void setGamemode(Gamemode gamemode) {
         serverPlayer.setGameMode(GameType.byId(gamemode.getId()));
+    }
+
+    @Override
+    public World getWorld() {
+        return new WorldImpl(serverPlayer.level);
     }
 
     @Override

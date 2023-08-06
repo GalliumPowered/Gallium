@@ -1,5 +1,6 @@
 package org.galliumpowered.command;
 
+import org.galliumpowered.command.console.ConsoleCommandCaller;
 import org.galliumpowered.world.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -36,9 +37,9 @@ public class CommandContextImpl implements CommandContext {
     }
 
     @Override
-    public CommandContext ifConsole(Consumer<CommandCaller> consumer) {
+    public CommandContext ifConsole(Consumer<ConsoleCommandCaller> consumer) {
         if (getCaller().getPlayer().isEmpty()) {
-            consumer.accept(getCaller());
+            consumer.accept((ConsoleCommandCaller) caller);
         }
         return this;
     }

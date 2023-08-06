@@ -2,6 +2,8 @@ package org.galliumpowered.world.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
+import org.galliumpowered.world.World;
+import org.galliumpowered.world.WorldImpl;
 
 public class WorldBlockImpl implements WorldBlock {
     private Block nmsBlock;
