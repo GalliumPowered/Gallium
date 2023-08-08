@@ -41,7 +41,7 @@ public class Mod extends Gallium {
             return;
         }
 
-        this.nmsBridge = new BridgeImpl();
+        this.bridge = new BridgeImpl();
         this.server = new ServerImpl();
 
         this.commandManager = new CommandManager();
