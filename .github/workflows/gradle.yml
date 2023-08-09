@@ -36,5 +36,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: gallium-mod-jar
-        path: build/libs/Gallium-*.jar
+        path: server/build/libs/Gallium-*.jar
         if-no-files-found: error
