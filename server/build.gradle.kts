@@ -5,6 +5,9 @@ plugins {
 }
 
 var main = "org.galliumpowered.Main"
+var runDir = file("./run/")
+
+runDir.mkdirs()
 
 apply(from = "../gradle/build.gradle")
 
@@ -60,10 +63,16 @@ tasks {
         }
     }
 }
+
 artifacts {
     archives(tasks.shadowJar)
 }
 
 application {
-    mainClass.set(main);
+    mainClass.set(main)
+}
+
+tasks.named<JavaExec>("run") {
+    // Absolute paths work, not local ones??
+    workingDir = runDir
 }
