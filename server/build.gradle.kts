@@ -11,6 +11,9 @@ runDir.mkdirs()
 
 apply(from = "../gradle/build.gradle")
 
+val libVersion: String by project
+val minecraftVersion: String by project
+
 dependencies {
     implementation("org.jetbrains:annotations:24.0.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
@@ -44,7 +47,7 @@ dependencies {
 
     // TODO: Mixin, don't use this
     // ALSO TODO: 1.20
-    implementation("net.minecraft:server:1.17.1")
+    implementation("net.minecraft:server:$minecraftVersion")
 }
 
 tasks {
@@ -55,7 +58,7 @@ tasks {
     }
 
     shadowJar {
-        archiveBaseName.set("Gallium-$version")
+        archiveBaseName.set("Gallium-$minecraftVersion-$libVersion")
         archiveClassifier.set("")
         archiveVersion.set("")
         manifest {

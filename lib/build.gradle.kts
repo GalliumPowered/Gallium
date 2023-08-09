@@ -2,8 +2,10 @@ plugins {
     java
 }
 
+val libVersion: String by project
+
 group = "org.galliumpowered"
-version = "1.1.0-beta.5"
+version = libVersion
 
 apply(from = "../gradle/build.gradle")
 
