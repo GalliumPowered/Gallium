@@ -13,9 +13,6 @@ public class PluginManager {
     private ArrayList<PluginContainer> plugins = new ArrayList<>();
     public PluginLoader javaPluginLoader = new PluginLoader();
     private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
-    public PluginManager() {
-
-    }
 
     public Optional<PluginContainer> getPluginById(String id) {
         return plugins.stream()

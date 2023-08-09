@@ -1,9 +1,10 @@
 plugins {
     java
+    application
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-var mainClass = "org.galliumpowered.Main"
+var main = "org.galliumpowered.Main"
 
 apply(from = "../gradle/build.gradle")
 
@@ -46,7 +47,7 @@ dependencies {
 tasks {
     jar {
         manifest {
-            attributes("Main-Class" to mainClass)
+            attributes("Main-Class" to main)
         }
     }
 
@@ -61,4 +62,8 @@ tasks {
 }
 artifacts {
     archives(tasks.shadowJar)
+}
+
+application {
+    mainClass.set(main);
 }

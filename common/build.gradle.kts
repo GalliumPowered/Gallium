@@ -12,10 +12,6 @@ repositories {
 dependencies {
     implementation("org.apache.logging.log4j:log4j-core:2.19.0")
     implementation("org.apache.logging.log4j:log4j-api:2.19.0")
-
-    implementation(project(":lib")) {
-        exclude(":common")
-    }
 }
 
 tasks.test {

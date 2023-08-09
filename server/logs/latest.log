@@ -1,0 +1,7 @@
+[10:01:18] [Gallium/Database] [INFO]: Opening database connection
+[10:01:18] [Gallium/Startup] [INFO]: Launching server
+[10:01:18] [oshi.util.FileUtil] [WARN]: Configuration conflict: there is more than one oshi.properties file on the classpath: [jar:file:/home/findlayr/.gradle/caches/modules-2/files-2.1/com.github.oshi/oshi-core/6.2.2/54f5efc19bca95d709d9a37d19ffcbba3d21c1a6/oshi-core-6.2.2.jar!/oshi.properties, jar:file:/home/findlayr/.gradle/caches/modules-2/files-2.1/net.minecraft/server/1.17.1/68ae27ff06fa6cf3aa2ebc3948131940435d7108/server-1.17.1.jar!/oshi.properties]
+[10:01:18] [oshi.util.FileUtil] [WARN]: Configuration conflict: there is more than one oshi.architecture.properties file on the classpath: [jar:file:/home/findlayr/.gradle/caches/modules-2/files-2.1/com.github.oshi/oshi-core/6.2.2/54f5efc19bca95d709d9a37d19ffcbba3d21c1a6/oshi-core-6.2.2.jar!/oshi.architecture.properties, jar:file:/home/findlayr/.gradle/caches/modules-2/files-2.1/net.minecraft/server/1.17.1/68ae27ff06fa6cf3aa2ebc3948131940435d7108/server-1.17.1.jar!/oshi.architecture.properties]
+[10:01:22] [net.minecraft.server.dedicated.Settings] [ERROR]: Failed to load properties from file: config/server.properties
+[10:01:22] [net.minecraft.server.Eula] [WARN]: Failed to load eula.txt
+[10:01:22] [net.minecraft.server.Main] [INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
