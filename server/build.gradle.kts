@@ -3,16 +3,9 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-group = "net.zenoc"
-version = "1.17.1-1.1.0-beta.5"
 var mainClass = "org.galliumpowered.Main"
 
-repositories {
-    mavenCentral()
-//    mavenLocal()
-    maven("https://libraries.minecraft.net")
-    maven("https://repo.zenoc.net/repository")
-}
+apply(from = "../gradle/build.gradle")
 
 dependencies {
     implementation("org.jetbrains:annotations:24.0.0")
@@ -43,8 +36,7 @@ dependencies {
     implementation("com.google.guava:guava:32.0.1-jre")
     implementation("com.google.inject:guice:7.0.0")
 
-    // GalliumLib
-    implementation(project(":GalliumLib"))
+    implementation(project(":lib"))
 
     // TODO: Mixin, don't use this
     // ALSO TODO: 1.20
