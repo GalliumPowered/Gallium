@@ -2,8 +2,10 @@ plugins {
     id("java")
 }
 
+val libVersion: String by project
+
 group = "org.galliumpowered"
-version = "1.17.1-1.1.0-beta.5"
+version = "$libVersion"
 
 repositories {
     mavenCentral()
