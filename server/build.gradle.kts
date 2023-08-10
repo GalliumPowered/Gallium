@@ -1,18 +1,18 @@
 plugins {
     java
+    application
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-group = "net.zenoc"
-version = "1.17.1-1.1.0-beta.5"
-var mainClass = "org.galliumpowered.Main"
+var main = "org.galliumpowered.Main"
+var runDir = file("./run/")
 
-repositories {
-    mavenCentral()
-//    mavenLocal()
-    maven("https://libraries.minecraft.net")
-    maven("https://repo.zenoc.net/repository")
-}
+runDir.mkdirs()
+
+apply(from = "../gradle/build.gradle")
+
+val libVersion: String by project
+val minecraftVersion: String by project
 
 dependencies {
     implementation("org.jetbrains:annotations:24.0.0")
@@ -43,23 +43,22 @@ dependencies {
     implementation("com.google.guava:guava:32.0.1-jre")
     implementation("com.google.inject:guice:7.0.0")
 
-    // GalliumLib
-    implementation(project(":GalliumLib"))
+    implementation(project(":lib"))
 
     // TODO: Mixin, don't use this
     // ALSO TODO: 1.20
-    implementation("net.minecraft:server:1.17.1")
+    implementation("net.minecraft:server:$minecraftVersion")
 }
 
 tasks {
     jar {
         manifest {
-            attributes("Main-Class" to mainClass)
+            attributes("Main-Class" to main)
         }
     }
 
     shadowJar {
-        archiveBaseName.set("Gallium-$version")
+        archiveBaseName.set("Gallium-$minecraftVersion-$libVersion")
         archiveClassifier.set("")
         archiveVersion.set("")
         manifest {
@@ -67,6 +66,16 @@ tasks {
         }
     }
 }
+
 artifacts {
     archives(tasks.shadowJar)
+}
+
+application {
+    mainClass.set(main)
+}
+
+tasks.named<JavaExec>("run") {
+    // Absolute paths work, not local ones??
+    workingDir = runDir
 }

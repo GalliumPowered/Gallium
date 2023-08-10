@@ -1,4 +1,5 @@
 rootProject.name = "Gallium"
 
-include(":GalliumLib")
-project(":GalliumLib").projectDir = File("./GalliumLib")
+include("common")
+include("lib")
+include("server")
