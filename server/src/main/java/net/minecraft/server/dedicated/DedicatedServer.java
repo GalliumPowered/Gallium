@@ -69,10 +69,9 @@ import net.minecraft.world.level.storage.WorldData;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.event.system.ServerStartEvent;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.galliumpowered.plugin.PluginLifecycleState;
 
 public class DedicatedServer extends MinecraftServer implements ServerInterface {
-    static final Logger LOGGER = LogManager.getLogger();
     private static final int CONVERSION_RETRY_DELAY_MS = 5000;
     private static final int CONVERSION_RETRIES = 2;
     private static final Pattern SHA1 = Pattern.compile("^[a-fA-F0-9]{40}$");
@@ -107,20 +106,20 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
                         DedicatedServer.this.handleConsoleInput(string, DedicatedServer.this.createCommandSourceStack());
                     }
                 } catch (IOException var4) {
-                    DedicatedServer.LOGGER.error("Exception handling console input", var4);
+                    logger.error("Exception handling console input", var4);
                 }
 
             }
         };
         thread.setDaemon(true);
-        thread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(LOGGER));
+        thread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(logger));
         thread.start();
-        LOGGER.info("Starting minecraft server version {}", SharedConstants.getCurrentVersion().getName());
+        logger.info("Starting minecraft server version {}", SharedConstants.getCurrentVersion().getName());
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
-            LOGGER.warn("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
+            logger.warn("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
         }
 
-        LOGGER.info("Loading properties");
+        logger.info("Loading properties");
         DedicatedServerProperties dedicatedServerProperties = this.settings.getProperties();
         if (this.isSingleplayer()) {
             this.setLocalIp("127.0.0.1");
@@ -137,7 +136,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
         super.setPlayerIdleTimeout((Integer)dedicatedServerProperties.playerIdleTimeout.get());
         this.setEnforceWhitelist(dedicatedServerProperties.enforceWhitelist);
         this.worldData.setGameType(dedicatedServerProperties.gamemode);
-        LOGGER.info("Default game type: {}", dedicatedServerProperties.gamemode);
+        logger.info("Default game type: {}", dedicatedServerProperties.gamemode);
         InetAddress inetAddress = null;
         if (!this.getLocalIp().isEmpty()) {
             inetAddress = InetAddress.getByName(this.getLocalIp());
@@ -148,22 +147,22 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
         }
 
         this.initializeKeyPair();
-        LOGGER.info("Starting Minecraft server on {}:{}", this.getLocalIp().isEmpty() ? "*" : this.getLocalIp(), this.getPort());
+        logger.info("Starting Minecraft server on {}:{}", this.getLocalIp().isEmpty() ? "*" : this.getLocalIp(), this.getPort());
 
         try {
             this.getConnection().startTcpServerListener(inetAddress, this.getPort());
         } catch (IOException var10) {
-            LOGGER.warn("**** FAILED TO BIND TO PORT!");
-            LOGGER.warn("The exception was: {}", var10.toString());
-            LOGGER.warn("Perhaps a server is already running on that port?");
+            logger.warn("**** FAILED TO BIND TO PORT!");
+            logger.warn("The exception was: {}", var10.toString());
+            logger.warn("Perhaps a server is already running on that port?");
             return false;
         }
 
         if (!this.usesAuthentication()) {
-            LOGGER.warn("**** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!");
-            LOGGER.warn("The server will make no attempt to authenticate usernames. Beware.");
-            LOGGER.warn("While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.");
-            LOGGER.warn("To change this, set \"online-mode\" to \"true\" in the config/server.properties file.");
+            logger.warn("**** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!");
+            logger.warn("The server will make no attempt to authenticate usernames. Beware.");
+            logger.warn("While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.");
+            logger.warn("To change this, set \"online-mode\" to \"true\" in the config/server.properties file.");
         }
 
         if (this.convertOldUsers()) {
@@ -179,30 +178,40 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
             SkullBlockEntity.setSessionService(this.getSessionService());
             SkullBlockEntity.setMainThreadExecutor(this);
             GameProfileCache.setUsesAuthentication(this.usesAuthentication());
-            Gallium.loadPlugins(); // Gallium
-            LOGGER.info("Preparing level \"{}\"", this.getLevelIdName());
+
+            // Gallium start: load plugins
+            pluginContainer.setLifecycleState(PluginLifecycleState.ENABLED);
+            Gallium.getPluginManager().addPlugin(pluginContainer);
+
+            Gallium.loadPlugins();
+
+            // Gallium end
+
+            logger.info("Preparing level \"{}\"", this.getLevelIdName());
             this.loadLevel();
             long m = Util.getNanos() - l;
             String string = String.format(Locale.ROOT, "%.3fs", (double)m / 1.0E9);
+
             new ServerStartEvent().call(); // Gallium
-            LOGGER.info("Done ({})! For help, type \"help\"", string);
+
+            logger.info("Done ({})! For help, type \"help\"", string);
             if (dedicatedServerProperties.announcePlayerAchievements != null) {
                 ((GameRules.BooleanValue)this.getGameRules().getRule(GameRules.RULE_ANNOUNCE_ADVANCEMENTS)).set(dedicatedServerProperties.announcePlayerAchievements, this);
             }
 
             if (dedicatedServerProperties.enableQuery) {
-                LOGGER.info("Starting GS4 status listener");
+                logger.info("Starting GS4 status listener");
                 this.queryThreadGs4 = QueryThreadGs4.create(this);
             }
 
             if (dedicatedServerProperties.enableRcon) {
-                LOGGER.info("Starting remote control listener");
+                logger.info("Starting remote control listener");
                 this.rconThread = RconThread.create(this);
             }
 
             if (this.getMaxTickLength() > 0L) {
                 Thread thread2 = new Thread(new ServerWatchdog(this));
-                thread2.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandlerWithName(LOGGER));
+                thread2.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandlerWithName(logger));
                 thread2.setName("Server Watchdog");
                 thread2.setDaemon(true);
                 thread2.start();
@@ -211,7 +220,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
             Items.AIR.fillItemCategory(CreativeModeTab.TAB_SEARCH, NonNullList.create());
             if (dedicatedServerProperties.enableJmxMonitoring) {
                 MinecraftServerStatistics.registerJmxMonitoring(this);
-                LOGGER.info("JMX monitoring enabled");
+                logger.info("JMX monitoring enabled");
             }
 
             return true;
@@ -236,21 +245,21 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
         if (!dedicatedServerProperties.resourcePackSha1.isEmpty()) {
             string3 = dedicatedServerProperties.resourcePackSha1;
             if (!Strings.isNullOrEmpty(dedicatedServerProperties.resourcePackHash)) {
-                LOGGER.warn("resource-pack-hash is deprecated and found along side resource-pack-sha1. resource-pack-hash will be ignored.");
+                logger.warn("resource-pack-hash is deprecated and found along side resource-pack-sha1. resource-pack-hash will be ignored.");
             }
         } else if (!Strings.isNullOrEmpty(dedicatedServerProperties.resourcePackHash)) {
-            LOGGER.warn("resource-pack-hash is deprecated. Please use resource-pack-sha1 instead.");
+            logger.warn("resource-pack-hash is deprecated. Please use resource-pack-sha1 instead.");
             string3 = dedicatedServerProperties.resourcePackHash;
         } else {
             string3 = "";
         }
 
         if (!string3.isEmpty() && !SHA1.matcher(string3).matches()) {
-            LOGGER.warn("Invalid sha1 for ressource-pack-sha1");
+            logger.warn("Invalid sha1 for ressource-pack-sha1");
         }
 
         if (!dedicatedServerProperties.resourcePack.isEmpty() && string3.isEmpty()) {
-            LOGGER.warn("You specified a resource pack without providing a sha1 hash. Pack will be updated on the client only if you change the name of the pack.");
+            logger.warn("You specified a resource pack without providing a sha1 hash. Pack will be updated on the client only if you change the name of the pack.");
         }
 
         return string3;
@@ -477,7 +486,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
         int i;
         for(i = 0; !bl && i <= 2; ++i) {
             if (i > 0) {
-                LOGGER.warn("Encountered a problem while converting the user banlist, retrying in a few seconds");
+                logger.warn("Encountered a problem while converting the user banlist, retrying in a few seconds");
                 this.waitForRetry();
             }
 
@@ -488,7 +497,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
 
         for(i = 0; !bl2 && i <= 2; ++i) {
             if (i > 0) {
-                LOGGER.warn("Encountered a problem while converting the ip banlist, retrying in a few seconds");
+                logger.warn("Encountered a problem while converting the ip banlist, retrying in a few seconds");
                 this.waitForRetry();
             }
 
@@ -499,7 +508,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
 
         for(i = 0; !bl3 && i <= 2; ++i) {
             if (i > 0) {
-                LOGGER.warn("Encountered a problem while converting the op list, retrying in a few seconds");
+                logger.warn("Encountered a problem while converting the op list, retrying in a few seconds");
                 this.waitForRetry();
             }
 
@@ -510,7 +519,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
 
         for(i = 0; !bl4 && i <= 2; ++i) {
             if (i > 0) {
-                LOGGER.warn("Encountered a problem while converting the whitelist, retrying in a few seconds");
+                logger.warn("Encountered a problem while converting the whitelist, retrying in a few seconds");
                 this.waitForRetry();
             }
 
@@ -521,7 +530,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
 
         for(i = 0; !bl5 && i <= 2; ++i) {
             if (i > 0) {
-                LOGGER.warn("Encountered a problem while converting the player save files, retrying in a few seconds");
+                logger.warn("Encountered a problem while converting the player save files, retrying in a few seconds");
                 this.waitForRetry();
             }
 

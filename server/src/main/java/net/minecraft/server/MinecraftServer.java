@@ -156,15 +156,26 @@ import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.PredicateManager;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.LogManager;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.Mod;
+import org.galliumpowered.annotation.Plugin;
 import org.galliumpowered.event.system.ServerShutdownEvent;
 import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.galliumpowered.plugin.PluginContainer;
+import org.galliumpowered.plugin.metadata.PluginMetadataLoader;
 
+@Plugin(
+        name = "Minecraft",
+        id = "minecraft",
+        description = "Minecraft",
+        authors = "Mojang",
+        version = "1.17.1"
+) // Gallium
 public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTask> implements SnooperPopulator, CommandSource, AutoCloseable {
-    static final Logger LOGGER = LogManager.getLogger();
+    protected Logger logger; // Gallium
+    protected static final Logger LOGGER = LogManager.getLogger("minecraft"); // Gallium
     private static final float AVERAGE_TICK_TIME_SMOOTHING = 0.8F;
     private static final int TICK_STATS_SPAN = 100;
     public static final int MS_PER_TICK = 50;
@@ -252,6 +263,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
     private ServerResources resources;
     private final StructureManager structureManager;
     protected final WorldData worldData;
+    protected PluginContainer pluginContainer; // Gallium
 
     public static <S extends MinecraftServer> S spin(Function<Thread, S> function) {
         AtomicReference<S> atomicReference = new AtomicReference<>();
@@ -310,7 +322,16 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
         this.serverThread = thread;
         this.executor = Util.backgroundExecutor();
 
+        // Gallium start: Internal Minecraft plugin
+        // TODO: Register Minecraft commands under Minecraft plugin ID
+        pluginContainer = new PluginContainer();
+        pluginContainer.setMetadata(PluginMetadataLoader.getPluginMetaFromAnnotation(MinecraftServer.class));
+        pluginContainer.setInstance(this); // No inject for this plugin
+
+        logger = pluginContainer.getLogger();
+
         Mod.setMinecraftServer(this);
+        // Gallium end
     }
 
     private void readScoreboard(DimensionDataStorage dimensionDataStorage) {
@@ -339,7 +360,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                 public void progressStagePercentage(int i) {
                     if (Util.getMillis() - this.timeStamp >= 1000L) {
                         this.timeStamp = Util.getMillis();
-                        MinecraftServer.LOGGER.info("Converting... {}%", i);
+                        LOGGER.info("Converting... {}%", i);
                     }
 
                 }
@@ -515,7 +536,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
 
     private void prepareLevels(ChunkProgressListener chunkProgressListener) {
         ServerLevel serverLevel = this.overworld();
-        LOGGER.info("Preparing start region for dimension {}", serverLevel.dimension().location());
+        logger.info("Preparing start region for dimension {}", serverLevel.dimension().location());
         BlockPos blockPos = serverLevel.getSharedSpawnPos();
         chunkProgressListener.updateSpawnPos(new ChunkPos(blockPos));
         ServerChunkCache serverChunkCache = serverLevel.getChunkSource();
@@ -567,7 +588,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
             try {
                 this.setResourcePack("level://" + URLEncoder.encode(string, StandardCharsets.UTF_8.toString()) + "/resources.zip", "");
             } catch (UnsupportedEncodingException var4) {
-                LOGGER.warn("Something went wrong url encoding {}", string);
+                logger.warn("Something went wrong url encoding {}", string);
             }
         }
 
@@ -593,7 +614,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
         for(Iterator<ServerLevel> var5 = this.getAllLevels().iterator(); var5.hasNext(); bl4 = true) {
             ServerLevel serverLevel = var5.next();
             if (!bl) {
-                LOGGER.info("Saving chunks for level '{}'/{}", serverLevel, serverLevel.dimension().location());
+                logger.info("Saving chunks for level '{}'/{}", serverLevel, serverLevel.dimension().location());
             }
 
             serverLevel.save((ProgressListener)null, bl2, serverLevel.noSave && !bl3);
@@ -609,10 +630,10 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
 
             while(var7.hasNext()) {
                 ServerLevel serverLevel3 = var7.next();
-                LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", serverLevel3.getChunkSource().chunkMap.getStorageName());
+                logger.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", serverLevel3.getChunkSource().chunkMap.getStorageName());
             }
 
-            LOGGER.info("ThreadedAnvilChunkStorage: All dimensions are saved");
+            logger.info("ThreadedAnvilChunkStorage: All dimensions are saved");
         }
 
         return bl4;
@@ -628,18 +649,18 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
         Gallium.getPluginManager().unloadPlugins();
         // Gallium end
 
-        LOGGER.info("Stopping server");
+        logger.info("Stopping server");
         if (this.getConnection() != null) {
             this.getConnection().stop();
         }
 
         if (this.playerList != null) {
-            LOGGER.info("Saving players");
+            logger.info("Saving players");
             this.playerList.saveAll();
             this.playerList.removeAll();
         }
 
-        LOGGER.info("Saving worlds");
+        logger.info("Saving worlds");
         Iterator<ServerLevel> var1 = this.getAllLevels().iterator();
 
         ServerLevel serverLevel2;
@@ -659,7 +680,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                 try {
                     serverLevel2.close();
                 } catch (IOException var5) {
-                    LOGGER.error("Exception closing the level", var5);
+                    logger.error("Exception closing the level", var5);
                 }
             }
         }
@@ -673,7 +694,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
         try {
             this.storageSource.close();
         } catch (IOException var4) {
-            LOGGER.error("Failed to unlock level {}", this.storageSource.getLevelId(), var4);
+            logger.error("Failed to unlock level {}", this.storageSource.getLevelId(), var4);
         }
 
     }
@@ -696,7 +717,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
             try {
                 this.serverThread.join();
             } catch (InterruptedException var3) {
-                LOGGER.error("Error while shutting down", var3);
+                logger.error("Error while shutting down", var3);
             }
         }
 
@@ -714,7 +735,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                     long l = Util.getMillis() - this.nextTickTime;
                     if (l > 2000L && this.nextTickTime - this.lastOverloadWarning >= 15000L) {
                         long m = l / 50L;
-                        LOGGER.warn("Can't keep up! Is the server overloaded? Running {}ms or {} ticks behind", l, m);
+                        logger.warn("Can't keep up! Is the server overloaded? Running {}ms or {} ticks behind", l, m);
                         this.nextTickTime += m * 50L;
                         this.lastOverloadWarning = this.nextTickTime;
                     }
@@ -740,7 +761,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                 this.onServerCrash((CrashReport)null);
             }
         } catch (Throwable var44) {
-            LOGGER.error("Encountered an unexpected exception", var44);
+            logger.error("Encountered an unexpected exception", var44);
             CrashReport crashReport2;
             if (var44 instanceof ReportedException) {
                 crashReport2 = ((ReportedException)var44).getReport();
@@ -754,9 +775,9 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
             Date var10004 = new Date();
             File file = new File(var10002, "crash-" + var10003.format(var10004) + "-server.txt");
             if (crashReport2.saveToFile(file)) {
-                LOGGER.error("This crash report has been saved to: {}", file.getAbsolutePath());
+                logger.error("This crash report has been saved to: {}", file.getAbsolutePath());
             } else {
-                LOGGER.error("We were unable to save this crash report to disk.");
+                logger.error("We were unable to save this crash report to disk.");
             }
 
             this.onServerCrash(crashReport2);
@@ -765,7 +786,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                 this.stopped = true;
                 this.stopServer();
             } catch (Throwable var42) {
-                LOGGER.error("Exception stopping the server", var42);
+                logger.error("Exception stopping the server", var42);
             } finally {
                 this.onServerExit();
             }
@@ -840,7 +861,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                 String var10001 = new String(bs, StandardCharsets.UTF_8);
                 serverStatus.setFavicon("data:image/png;base64," + var10001);
             } catch (Exception var5) {
-                LOGGER.error("Couldn't load server icon", var5);
+                logger.error("Couldn't load server icon", var5);
             }
 
         });
@@ -879,12 +900,12 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
         }
 
         if (this.tickCount % 6000 == 0) {
-            LOGGER.debug("Autosave started");
+            logger.debug("Autosave started");
             this.profiler.push("save");
             this.playerList.saveAll();
             this.saveAllChunks(true, false, false);
             this.profiler.pop();
-            LOGGER.debug("Autosave finished");
+            logger.debug("Autosave finished");
         }
 
         this.profiler.push("snooper");
@@ -1051,7 +1072,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
     public abstract Optional<String> getModdedStatus();
 
     public void sendMessage(Component component, UUID uUID) {
-        LOGGER.info(component.getString());
+        logger.info(component.getString());
     }
 
     public KeyPair getKeyPair() {
@@ -1079,7 +1100,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
     }
 
     protected void initializeKeyPair() {
-        LOGGER.info("Generating keypair");
+        logger.info("Generating keypair");
 
         try {
             this.keyPair = Crypt.generateKeyPair();
@@ -1584,7 +1605,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
             this.dumpThreads(path.resolve("threads.txt"));
             this.dumpServerProperties(path.resolve("server.properties.txt"));
         } catch (IOException var7) {
-            LOGGER.warn("Failed to save debug report", var7);
+            logger.warn("Failed to save debug report", var7);
         }
 
     }

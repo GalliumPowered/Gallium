@@ -98,7 +98,7 @@ public class PluginContainer {
      * @return {@link Logger} for the plugin container
      */
     public Logger getLogger() {
-        return log;
+        return LogManager.getLogger(metadata.getId());
     }
 
 
