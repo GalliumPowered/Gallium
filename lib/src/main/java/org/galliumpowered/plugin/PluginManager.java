@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.*;
 
 public class PluginManager {
+    public static boolean loadTestPlugin = false;
     private ArrayList<PluginContainer> plugins = new ArrayList<>();
     public PluginLoader javaPluginLoader = new PluginLoader();
     private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
@@ -30,6 +31,10 @@ public class PluginManager {
 
     public void loadPlugins() throws IOException {
         Gallium.getBridge().loadInternalPlugin();
+        if (loadTestPlugin) {
+            log.info("Enabling test plugin");
+            Gallium.getBridge().loadTestPlugin();
+        }
         // Load plugins in the plugins directory
         File pluginsDir = Gallium.getPluginsDirectory();
         if (!pluginsDir.exists()) {

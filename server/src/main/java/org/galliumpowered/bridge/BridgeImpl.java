@@ -1,6 +1,7 @@
 package org.galliumpowered.bridge;
 
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -22,6 +23,7 @@ import org.galliumpowered.plugin.PluginLifecycleState;
 import org.galliumpowered.plugin.inject.modules.InjectPluginModule;
 import org.galliumpowered.plugin.metadata.PluginMetadata;
 import org.galliumpowered.plugin.metadata.PluginMetadataLoader;
+import org.galliumpowered.testplugin.TestPlugin;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.world.entity.PlayerImpl;
 import org.galliumpowered.exceptions.CommandException;
@@ -29,6 +31,8 @@ import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.command.CommandContextImpl;
 import org.galliumpowered.command.MCommand;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
@@ -183,18 +187,36 @@ public class BridgeImpl implements Bridge {
 
     @Override
     public void loadInternalPlugin() {
-        GalliumPlugin internalPlugin = new GalliumPlugin();
-        PluginMetadata internalPluginMetadata = PluginMetadataLoader.getPluginMetaFromAnnotation(internalPlugin.getClass());
+        PluginMetadata internalPluginMetadata = PluginMetadataLoader.getPluginMetaFromAnnotation(GalliumPlugin.class);
         PluginContainer internalPluginContainer = new PluginContainer();
 
         internalPluginContainer.setMetadata(internalPluginMetadata);
 
         Injector internalPluginInjector = Guice.createInjector(new InjectPluginModule(internalPluginContainer));
         internalPluginContainer.setInjector(internalPluginInjector);
-        internalPluginContainer.setInstance(internalPluginInjector.getInstance(internalPlugin.getClass()));
+        internalPluginContainer.setInstance(internalPluginInjector.getInstance(GalliumPlugin.class));
 
         internalPluginContainer.setLifecycleState(PluginLifecycleState.ENABLED);
 
         Gallium.getPluginManager().addPlugin(internalPluginContainer);
+    }
+
+    @Override
+    public void loadTestPlugin() {
+        InputStream inputStream = TestPlugin.class.getResourceAsStream("/plugin.json");
+        InputStreamReader reader = new InputStreamReader(inputStream);
+        PluginMetadata pluginMetadata = PluginMetadataLoader.getPluginMetadataFromJson(reader);
+
+        PluginContainer pluginContainer = new PluginContainer();
+        pluginContainer.setMetadata(pluginMetadata);
+
+        Injector injector = Guice.createInjector(new InjectPluginModule(pluginContainer));
+
+        pluginContainer.setInjector(injector);
+        pluginContainer.setInstance(injector.getInstance(TestPlugin.class));
+
+        Gallium.getPluginManager().addPlugin(pluginContainer);
+
+        pluginContainer.setLifecycleState(PluginLifecycleState.ENABLED);
     }
 }

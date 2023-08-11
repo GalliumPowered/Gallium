@@ -9,7 +9,6 @@ import org.galliumpowered.internal.plugin.commands.permissions.GroupmodCommand;
 import org.galliumpowered.internal.plugin.commands.permissions.PlayermodCommand;
 import org.galliumpowered.internal.plugin.commands.plugin.PluginInfoCommand;
 import org.galliumpowered.internal.plugin.commands.plugin.PluginListCommand;
-import org.galliumpowered.internal.plugin.commands.testing.TestCommand;
 import org.galliumpowered.internal.plugin.listeners.PlayerJoinListener;
 import org.galliumpowered.plugin.PluginContainer;
 import org.galliumpowered.plugin.PluginLifecycleState;
@@ -40,7 +39,7 @@ public class GalliumPlugin {
         Gallium.getCommandManager().registerCommand(new GroupmodCommand(), pluginContainer);
         Gallium.getCommandManager().registerCommand(new GamemodeCommand(), pluginContainer);
         Gallium.getCommandManager().registerCommand(new PluginInfoCommand(), pluginContainer);
-        Gallium.getCommandManager().registerCommand(new TestCommand(), pluginContainer);
+//        Gallium.getCommandManager().registerCommand(new TestCommand(), pluginContainer);
 
         // Listener registration
         Gallium.getEventManager().registerEvent(new PlayerJoinListener());

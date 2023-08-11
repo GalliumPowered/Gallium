@@ -43,7 +43,11 @@ dependencies {
     implementation("com.google.guava:guava:32.0.1-jre")
     implementation("com.google.inject:guice:7.0.0")
 
+    // GalliumLib
     implementation(project(":lib"))
+
+    // Test plugin
+    implementation(project(":testplugin"))
 
     // TODO: Mixin, don't use this
     // ALSO TODO: 1.20
@@ -76,6 +80,6 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
-    // Absolute paths work, not local ones??
     workingDir = runDir
+    args = listOf("--testplugin")
 }

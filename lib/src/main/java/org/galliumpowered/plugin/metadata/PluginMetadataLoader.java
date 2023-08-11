@@ -34,25 +34,7 @@ public class PluginMetadataLoader {
             // Get metadata from JSON
             if (zip.getEntry("plugin.json") != null) {
                 InputStreamReader configReader = new InputStreamReader(child.getResourceAsStream("plugin.json"));
-                BufferedReader br = new BufferedReader(configReader);
-
-                JSONTokener tokener = new JSONTokener(br);
-                JSONObject json = new JSONObject(tokener);
-
-                String name = json.getString("name");
-                String id = json.getString("id").toLowerCase();
-                String description = json.getString("description");
-                String version = json.getString("version");
-
-                mainClass = json.getString("mainClass");
-
-                JSONArray authorsJSON = json.getJSONArray("authors");
-                String[] authors = new String[authorsJSON.length()];
-                for (int i = 0; i < authorsJSON.length(); i++) {
-                    authors[i] = (String) authorsJSON.get(i);
-                }
-
-                meta = new DefaultPluginMeta(name, id, description, authors, version, mainClass);
+                meta = getPluginMetadataFromJson(configReader);
             } else {
                 // Get metadata from annotation
                 ZipEntry manifest = zip.getEntry("META-INF/MANIFEST.MF");
@@ -78,5 +60,26 @@ public class PluginMetadataLoader {
     public static PluginMetadata getPluginMetaFromAnnotation(Class<?> javaPluginClass) {
         Plugin plugin = javaPluginClass.getAnnotation(Plugin.class);
         return new DefaultPluginMeta(plugin.name(), plugin.id().toLowerCase(), plugin.description(), plugin.authors(), plugin.version(), javaPluginClass.getName());
+    }
+
+    public static PluginMetadata getPluginMetadataFromJson(InputStreamReader configReader) {
+        BufferedReader br = new BufferedReader(configReader);
+
+        JSONTokener tokener = new JSONTokener(br);
+        JSONObject json = new JSONObject(tokener);
+
+        String name = json.getString("name");
+        String id = json.getString("id").toLowerCase();
+        String description = json.getString("description");
+        String version = json.getString("version");
+        String mainClass = json.getString("mainClass");
+
+        JSONArray authorsJSON = json.getJSONArray("authors");
+        String[] authors = new String[authorsJSON.length()];
+        for (int i = 0; i < authorsJSON.length(); i++) {
+            authors[i] = (String) authorsJSON.get(i);
+        }
+
+        return new DefaultPluginMeta(name, id, description, authors, version, mainClass);
     }
 }

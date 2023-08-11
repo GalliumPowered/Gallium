@@ -76,6 +76,7 @@ public class Main {
     public static void main(String[] strings) {
         SharedConstants.tryDetectVersion();
         OptionParser optionParser = new OptionParser();
+        OptionSpec<Void> testPlugin = optionParser.accepts("testplugin"); // Gallium
         OptionSpec<Void> optionSpec = optionParser.accepts("nogui");
         OptionSpec<Void> optionSpec2 = optionParser.accepts("initSettings", "Initializes 'server.properties' and 'eula.txt', then quits");
         OptionSpec<Void> optionSpec3 = optionParser.accepts("demo");

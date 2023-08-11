@@ -18,4 +18,6 @@ public interface Bridge {
     String getServerVersion();
 
     void loadInternalPlugin();
+
+    void loadTestPlugin();
 }

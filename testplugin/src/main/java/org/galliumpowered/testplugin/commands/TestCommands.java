@@ -1,4 +1,4 @@
-package org.galliumpowered.internal.plugin.commands.testing;
+package org.galliumpowered.testplugin.commands;
 
 import net.kyori.adventure.text.Component;
 import org.galliumpowered.Gallium;
@@ -7,7 +7,7 @@ import org.galliumpowered.annotation.Command;
 import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.command.args.ArgumentType;
 
-public class TestCommand {
+public class TestCommands {
     @Command(
             aliases = "test",
             description = "A test command, for testing Gallium!",
