@@ -1,5 +1,7 @@
 package org.galliumpowered.world.block;
 
+import org.galliumpowered.world.World;
+
 public interface WorldBlock extends Block {
     /**
      * Get the X coordinate of the block
@@ -18,4 +20,10 @@ public interface WorldBlock extends Block {
      * @return Z coordinate
      */
     int getZ();
+
+    /**
+     * Gets the block's current world
+     * @return Block world
+     */
+    World getWorld();
 }

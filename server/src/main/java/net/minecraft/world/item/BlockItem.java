@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.galliumpowered.event.player.PlayerPlaceBlockEvent;
+import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.world.block.WorldBlockImpl;
 import org.galliumpowered.world.entity.PlayerImpl;
 import org.galliumpowered.world.block.BlockImpl;
@@ -74,7 +75,7 @@ public class BlockItem extends Item {
                 BlockState blockState = this.getPlacementState(blockPlaceContext2);
                 // Gallium start: block place event
                 if (blockState != null && blockPlaceContext2.getPlayer() != null) {
-                    PlayerPlaceBlockEvent event = (PlayerPlaceBlockEvent) new PlayerPlaceBlockEvent(new PlayerImpl((ServerPlayer) blockPlaceContext2.getPlayer()), new WorldBlockImpl(block, blockPlaceContext2.getClickedPos())).call();
+                    PlayerPlaceBlockEvent event = (PlayerPlaceBlockEvent) new PlayerPlaceBlockEvent(new PlayerImpl((ServerPlayer) blockPlaceContext2.getPlayer()), new WorldBlockImpl(block, blockPlaceContext2.getClickedPos(), new WorldImpl(blockPlaceContext2.getLevel()))).call();
                     if (event.isCancelled) {
                         return InteractionResult.FAIL;
                     }

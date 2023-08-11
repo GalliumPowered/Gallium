@@ -8,10 +8,12 @@ import org.galliumpowered.world.WorldImpl;
 public class WorldBlockImpl implements WorldBlock {
     private Block nmsBlock;
     private BlockPos pos;
+    private World world;
 
-    public WorldBlockImpl(Block nmsBlock, BlockPos pos) {
+    public WorldBlockImpl(Block nmsBlock, BlockPos pos, World world) {
         this.nmsBlock = nmsBlock;
         this.pos = pos;
+        this.world = world;
     }
     @Override
     public String getId() {
@@ -36,5 +38,10 @@ public class WorldBlockImpl implements WorldBlock {
     @Override
     public int getZ() {
         return pos.getZ();
+    }
+
+    @Override
+    public World getWorld() {
+        return world;
     }
 }
