@@ -82,4 +82,5 @@ application {
 tasks.named<JavaExec>("run") {
     workingDir = runDir
     args = listOf("--testplugin")
+    standardInput = System.`in`
 }
