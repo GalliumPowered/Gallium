@@ -55,19 +55,8 @@ dependencies {
 }
 
 tasks {
-    jar {
-        manifest {
-            attributes("Main-Class" to main)
-        }
-    }
-
     shadowJar {
         archiveBaseName.set("Gallium-$minecraftVersion-$libVersion")
-        archiveClassifier.set("")
-        archiveVersion.set("")
-        manifest {
-            attributes("Multi-Release" to "true")
-        }
     }
 }
 
@@ -81,6 +70,6 @@ application {
 
 tasks.named<JavaExec>("run") {
     workingDir = runDir
-    args = listOf("--testplugin")
+    args = listOf("--testplugin", "--nogui")
     standardInput = System.`in`
 }
