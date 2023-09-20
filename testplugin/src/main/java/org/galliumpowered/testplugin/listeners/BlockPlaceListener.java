@@ -1,20 +1,19 @@
 package org.galliumpowered.testplugin.listeners;
 
 import org.apache.logging.log4j.Logger;
-import org.galliumpowered.Gallium;
 import org.galliumpowered.annotation.EventListener;
-import org.galliumpowered.event.player.PlayerBreakBlockEvent;
+import org.galliumpowered.event.player.PlayerPlaceBlockEvent;
 
-public class BlockBreakListener {
+public class BlockPlaceListener {
     private Logger logger;
 
-    public BlockBreakListener(Logger logger) {
+    public BlockPlaceListener(Logger logger) {
         this.logger = logger;
     }
 
     @EventListener
-    public void onBlockBreak(PlayerBreakBlockEvent event) {
-        logger.info("Player {} broke block {} in dimension {} at {} {} {} ",
+    public void onBlockPlace(PlayerPlaceBlockEvent event) {
+        logger.info("Player {} placed block {} in dimension {} at {} {} {} ",
                 event.getPlayer().getName(),
                 event.getBlock().getId(),
                 event.getBlock().getWorld().getDimension(),
