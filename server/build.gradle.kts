@@ -42,6 +42,8 @@ dependencies {
     implementation("net.java.dev.jna:jna:5.12.1")
     implementation("com.google.guava:guava:32.0.1-jre")
     implementation("com.google.inject:guice:7.0.0")
+    implementation("org.jline:jline:3.12.1")
+    implementation("net.minecrell:terminalconsoleappender:1.3.0")
 
     // GalliumLib
     implementation(project(":lib"))
