@@ -9,6 +9,7 @@ import org.galliumpowered.plugin.PluginLifecycleState;
 import org.galliumpowered.testplugin.commands.TestCommands;
 import org.galliumpowered.testplugin.listeners.BlockBreakListener;
 import org.galliumpowered.testplugin.listeners.BlockPlaceListener;
+import org.galliumpowered.testplugin.listeners.PlayerDeathListener;
 
 public class TestPlugin {
     @Inject
@@ -22,5 +23,6 @@ public class TestPlugin {
         Gallium.getCommandManager().registerCommand(new TestCommands(), pluginContainer);
         Gallium.getEventManager().registerEvent(new BlockBreakListener(logger));
         Gallium.getEventManager().registerEvent(new BlockPlaceListener(logger));
+        Gallium.getEventManager().registerEvent(new PlayerDeathListener());
     }
 }
