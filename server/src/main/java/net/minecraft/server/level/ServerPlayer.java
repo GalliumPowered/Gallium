@@ -533,7 +533,7 @@ public class ServerPlayer extends Player {
         LOGGER.info("ServerPlayer#die called");
         // the part where he kills you!
         // Gallium start: event
-        PlayerDeathEvent event = new PlayerDeathEvent(new PlayerImpl(this), null); // TODO: deathCause
+        PlayerDeathEvent event = (PlayerDeathEvent) new PlayerDeathEvent(new PlayerImpl(this), null).call(); // TODO: deathCause
 
         if (event.isCancelled) {
             return;
