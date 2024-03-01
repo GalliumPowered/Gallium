@@ -21,8 +21,8 @@ public class TestPlugin {
     @PluginLifecycleListener(PluginLifecycleState.ENABLED)
     public void onPluginEnable() {
         Gallium.getCommandManager().registerCommand(new TestCommands(), pluginContainer);
-        Gallium.getEventManager().registerEvent(new BlockBreakListener(logger));
-        Gallium.getEventManager().registerEvent(new BlockPlaceListener(logger));
-        Gallium.getEventManager().registerEvent(new PlayerDeathListener());
+        Gallium.getEventManager().registerListener(new BlockBreakListener(logger));
+        Gallium.getEventManager().registerListener(new BlockPlaceListener(logger));
+        Gallium.getEventManager().registerListener(new PlayerDeathListener());
     }
 }

@@ -42,6 +42,6 @@ public class GalliumPlugin {
 //        Gallium.getCommandManager().registerCommand(new TestCommand(), pluginContainer);
 
         // Listener registration
-        Gallium.getEventManager().registerEvent(new PlayerJoinListener());
+        Gallium.getEventManager().registerListener(new PlayerJoinListener());
     }
 }
