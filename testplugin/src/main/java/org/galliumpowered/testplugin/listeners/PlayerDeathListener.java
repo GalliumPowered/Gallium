@@ -10,7 +10,7 @@ public class PlayerDeathListener {
     @EventListener
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (!event.isCancelled()) {
-            Gallium.getServer().sendMsgToAll(Component.text(Colors.LIGHT_GREEN + event.getPlayer().getName() + " has pasta'd away!"));
+            Gallium.getServer().sendMsgToAll(Component.text(Colors.GREEN + event.getPlayer().getName() + " " + event.getDeathCause()));
         }
     }
 }

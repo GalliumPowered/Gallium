@@ -1,22 +1,12 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package net.minecraft.server.level;
 
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.DataResult;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.Random;
-import java.util.UUID;
+
+import java.util.*;
+import java.util.function.Consumer;
 import javax.annotation.Nullable;
 import net.minecraft.BlockUtil;
 import net.minecraft.ChatFormatting;
@@ -148,6 +138,8 @@ import net.minecraft.world.scores.Team.Visibility;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.galliumpowered.Gallium;
+import org.galliumpowered.chat.Colors;
 import org.galliumpowered.event.player.PlayerDeathEvent;
 import org.galliumpowered.world.entity.PlayerImpl;
 
@@ -530,10 +522,14 @@ public class ServerPlayer extends Player {
     }
 
     public void die(DamageSource damageSource) {
-        LOGGER.info("ServerPlayer#die called");
         // the part where he kills you!
         // Gallium start: event
-        PlayerDeathEvent event = (PlayerDeathEvent) new PlayerDeathEvent(new PlayerImpl(this), null).call(); // TODO: deathCause
+
+        String[] deathMessage = damageSource.getLocalizedDeathMessage(this).getString().split(" ");
+        String finalDeathMessage = String.join(" ", Arrays.copyOfRange(deathMessage, 1, deathMessage.length));
+
+
+        PlayerDeathEvent event = (PlayerDeathEvent) new PlayerDeathEvent(new PlayerImpl(this), finalDeathMessage).call();
 
         if (event.isCancelled) {
             return;
