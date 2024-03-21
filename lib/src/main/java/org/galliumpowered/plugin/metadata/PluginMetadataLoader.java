@@ -78,7 +78,7 @@ public class PluginMetadataLoader {
         String[] authors = new String[authorsJSON.length()];
         for (int i = 0; i < authorsJSON.length(); i++) {
             authors[i] = (String) authorsJSON.get(i);
-        }:
+        }
 
         return new DefaultPluginMeta(name, id, description, authors, version, mainClass);
     }
