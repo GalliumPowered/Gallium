@@ -203,9 +203,8 @@ public class BridgeImpl implements Bridge {
 
     @Override
     public void loadTestPlugin() {
-        InputStream inputStream = TestPlugin.class.getResourceAsStream("/plugin.json");
-        InputStreamReader reader = new InputStreamReader(inputStream);
-        PluginMetadata pluginMetadata = PluginMetadataLoader.getPluginMetadataFromJson(reader);
+        // load the test plugin manually.
+        PluginMetadata pluginMetadata = PluginMetadataLoader.getPluginMetaFromAnnotation(TestPlugin.class);
 
         PluginContainer pluginContainer = new PluginContainer();
         pluginContainer.setMetadata(pluginMetadata);
