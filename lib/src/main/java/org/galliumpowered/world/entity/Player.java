@@ -1,8 +1,8 @@
 package org.galliumpowered.world.entity;
 
 import net.kyori.adventure.text.Component;
-import org.galliumpowered.Gamemode;
 import org.galliumpowered.Gallium;
+import org.galliumpowered.Gamemode;
 import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.permission.Group;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-public interface Player extends Entity, CommandCaller {
+public interface Player extends Entity, CommandCaller, PermissionOwner {
     /**
      * Get the player's UUID
-     * @return the uuid
+     * @return Player UUID
      */
     String getUUID();
 
@@ -87,7 +87,7 @@ public interface Player extends Entity, CommandCaller {
      * @throws SQLException
      */
     default void addPermission(String permission) throws SQLException {
-        Gallium.getDatabase().insertPermission(permission, new PermissionOwner(this));
+        Gallium.getDatabase().insertPermission(permission, this);
     }
 
     /**
@@ -96,7 +96,7 @@ public interface Player extends Entity, CommandCaller {
      * @throws SQLException
      */
     default void removePermission(String permission) throws SQLException {
-        Gallium.getDatabase().removePermission(permission, new PermissionOwner(this));
+        Gallium.getDatabase().removePermission(permission, this);
     }
 
     /**

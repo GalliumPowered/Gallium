@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Group {
+public class Group implements PermissionOwner {
     String name;
     ArrayList<String> permissions;
     String prefix;
@@ -22,6 +22,11 @@ public class Group {
         return name;
     }
 
+    @Override
+    public String getUUID() {
+        return getName();
+    }
+
     public ArrayList<String> getPermissions() {
         return permissions;
     }
@@ -31,11 +36,11 @@ public class Group {
     }
 
     public void addPermission(String permission) throws SQLException {
-        Gallium.getDatabase().insertPermission(permission, new PermissionOwner(this));
+        Gallium.getDatabase().insertPermission(permission, this);
     }
 
     public void removePermission(String permission) throws SQLException {
-        Gallium.getDatabase().removePermission(permission, new PermissionOwner(this));
+        Gallium.getDatabase().removePermission(permission, this);
     }
 
     public boolean hasPermission(String permission) {

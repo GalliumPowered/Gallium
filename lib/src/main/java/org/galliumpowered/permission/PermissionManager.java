@@ -12,10 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class PermissionManager {
-    private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
-    public PermissionManager() {
-
-    }
+    private static final Logger log = LogManager.getLogger("Gallium/PermissionManager");
 
     /**
      * Check if a player has a permission
