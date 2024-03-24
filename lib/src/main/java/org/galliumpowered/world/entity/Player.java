@@ -131,6 +131,11 @@ public interface Player extends Entity, CommandCaller, PermissionOwner {
     void setGamemode(Gamemode gamemode);
 
     /**
+     * Kill the player
+     */
+    void kill();
+
+    /**
      * Gets the player's current {@link World}
      * @return Player world
      */

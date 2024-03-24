@@ -67,6 +67,8 @@ import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
 import org.galliumpowered.Gallium;
+import org.galliumpowered.GalliumConsole;
+import org.galliumpowered.Mod;
 import org.galliumpowered.event.system.ServerStartEvent;
 import org.apache.logging.log4j.LogManager;
 import org.galliumpowered.plugin.PluginLifecycleState;
@@ -98,6 +100,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
     public boolean initServer() throws IOException {
         Thread thread = new Thread("Server console handler") {
             public void run() {
+                /*
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
                 String string;
@@ -105,9 +108,13 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
                     while(!DedicatedServer.this.isStopped() && DedicatedServer.this.isRunning() && (string = bufferedReader.readLine()) != null) {
                         DedicatedServer.this.handleConsoleInput(string, DedicatedServer.this.createCommandSourceStack());
                     }
+
                 } catch (IOException var4) {
                     logger.error("Exception handling console input", var4);
                 }
+                 */
+
+                new GalliumConsole().start(); // Gallium
 
             }
         };

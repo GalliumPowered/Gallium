@@ -36,7 +36,7 @@ public class PluginLoader {
                 PluginMetadata meta = metaOptional.get();
 
                 if (meta.getId().equals("gallium") || meta.getId().equals("minecraft") || meta.getId().equals("gtest")) {
-                    throw new BadPluginException("Plugin IDs 'gallium', 'minecraft' and 'gtest' are reserved!");
+                    throw new BadPluginException("Plugin IDs 'gallium', 'minecraft' and 'gtest' are reserved! Found plugin id '" + meta.getId() + "'");
                 }
 
                 if (meta.getId().contains(" ")) {

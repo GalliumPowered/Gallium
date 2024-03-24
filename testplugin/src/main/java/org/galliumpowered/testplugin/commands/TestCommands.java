@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.annotation.Args;
 import org.galliumpowered.annotation.Command;
+import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.command.args.ArgumentType;
 
@@ -77,6 +78,14 @@ public class TestCommands {
             player.sendMessage("Current world difficulty: " + player.getWorld().getDifficulty());
         }).ifConsole(console -> {
             console.sendMessage("You cannot use this command as the console!");
+        });
+    }
+
+    @Command(aliases = "suicide", description = "it's a way out")
+    public void suicideCommand(CommandContext ctx) {
+        ctx.ifPlayer(player -> {
+            player.kill();
+            Gallium.getServer().sendMsgToAll(Component.text(player.getPrefix() + player.getName() + Colors.GREEN + " took the easy way out."));
         });
     }
 }

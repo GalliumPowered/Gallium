@@ -1,8 +1,0 @@
-{
-  "mainClass": "org.galliumpowered.testplugin.TestPlugin",
-  "name": "Gallium test plugin",
-  "id": "gtest",
-  "description": "Gallium plugin for testing features",
-  "authors": ["GalliumPowered"],
-  "version": "1.0"
-}

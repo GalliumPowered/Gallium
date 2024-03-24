@@ -166,13 +166,13 @@ import org.apache.logging.log4j.Logger;
 import org.galliumpowered.plugin.PluginContainer;
 import org.galliumpowered.plugin.metadata.PluginMetadataLoader;
 
-@Plugin(
+@Plugin( // Gallium start: Minecraft plugin
         name = "Minecraft",
         id = "minecraft",
         description = "Minecraft",
         authors = "Mojang",
         version = "1.17.1"
-) // Gallium
+) // Gallium end
 public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTask> implements SnooperPopulator, CommandSource, AutoCloseable {
     protected Logger logger; // Gallium
     protected static final Logger LOGGER = LogManager.getLogger("minecraft"); // Gallium

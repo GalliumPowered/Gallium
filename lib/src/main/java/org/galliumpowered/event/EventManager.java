@@ -12,7 +12,7 @@ public class EventManager {
 
     }
 
-    public void registerEvent(Object listener) {
+    public void registerListener(Object listener) {
         Arrays.stream(listener.getClass().getMethods())
                 .filter(method -> method.isAnnotationPresent(EventListener.class))
                 .forEach(method -> {

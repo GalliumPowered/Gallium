@@ -64,6 +64,11 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public void kill() {
+        serverPlayer.kill();
+    }
+
+    @Override
     public World getWorld() {
         return new WorldImpl(serverPlayer.level);
     }
