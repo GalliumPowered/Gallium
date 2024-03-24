@@ -9,7 +9,7 @@ import org.galliumpowered.command.CommandContext;
 public class GalliumCommand {
     @Command(aliases = {"gallium"}, description = "Information about Gallium")
     public void galliumCommand(CommandContext ctx) {
-        ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "--- Gallium " + Colors.WHITE + "-" + Colors.GREEN + " Version 1.1.0-beta.3 ---"));
+        ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "--- Gallium " + Colors.WHITE + "-" + Colors.GREEN + " Version " + Gallium.getVersion() + " ---"));
         ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "Developers: " + Colors.WHITE + "SlimeDiamond, TheKodeToad"));
         ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "API version: " + Colors.WHITE + Gallium.getVersion()));
         ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "Minecraft version: " + Colors.WHITE + Gallium.getBridge().getServerVersion()));
