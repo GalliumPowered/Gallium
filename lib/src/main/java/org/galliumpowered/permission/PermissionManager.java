@@ -13,8 +13,9 @@ import java.util.Optional;
 
 public class PermissionManager {
     private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
+    private ArrayList<PermissionNode> permissions;
     public PermissionManager() {
-
+        this.permissions = new ArrayList<>();
     }
 
     /**
@@ -64,5 +65,27 @@ public class PermissionManager {
 
     public ArrayList<String> getPlayerPermissions(Player player) {
         return Gallium.getDatabase().getPlayerPermissions(player);
+    }
+
+    /**
+     * Returns an {@link ArrayList} of all permission nodes
+     * @return All registered permission nodes
+     */
+    public ArrayList<PermissionNode> getPermissions() {
+        return permissions;
+    }
+
+    /**
+     * Get a {@link PermissionNode} from its path
+     * @param path The path of the permission node you are trying to find - i.e. myplugin.myfeature.mycommand
+     * @return Permission node with the respective path
+     */
+    public PermissionNode findPermissionByPath(String path) {
+        for (PermissionNode permission : permissions) {
+            if (permission.getPath().equals(path)) {
+                return permission;
+            }
+        }
+        return null;
     }
 }

@@ -7,6 +7,7 @@ import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.permission.Group;
+import org.galliumpowered.permission.PermissionNode;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class GroupmodCommand {
             if (args.length == 3) {
                 // /groupmod <group> create
                 if (args[2].equalsIgnoreCase("create")) {
-                    Gallium.getGroupManager().createGroup(new Group(groupName, new ArrayList<>(), null));
+                    Gallium.getGroupManager().createGroup(new Group(groupName, null));
                     caller.sendMessage(Component.text(Colors.GREEN + "Created group " + Colors.WHITE + groupName));
                 } else if (args[2].equalsIgnoreCase("permission") || args[2].equalsIgnoreCase("prefix")) {
                     sendUsage(caller);
@@ -39,8 +40,8 @@ public class GroupmodCommand {
                         caller.sendMessage(Component.text(Colors.GREEN + "--- Group info ---"));
                         caller.sendMessage(Component.text(group.getName()));
                         StringJoiner joiner = new StringJoiner(", ");
-                        for (String permission : group.getPermissions()) {
-                            joiner.add(permission);
+                        for (PermissionNode permission : group.getPermissions()) {
+                            joiner.add(permission.getPath());
                         }
                         if (joiner.length() == 0) {
                             caller.sendMessage(Component.text("Permissions: No permissions"));

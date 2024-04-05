@@ -2,6 +2,7 @@ package org.galliumpowered.database;
 
 import org.galliumpowered.Gallium;
 import org.galliumpowered.chat.Colors;
+import org.galliumpowered.permission.PermissionNode;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.exceptions.GalliumDatabaseException;
 import org.galliumpowered.permission.Group;
@@ -293,6 +294,10 @@ public class Database {
      * @param manager the {@link GroupManager}
      * @throws SQLException
      */
+
+    public void addPermission(PermissionOwner owner, PermissionNode permission) {
+
+    }
     public void addGroupsToGroupManager(GroupManager manager) throws SQLException {
         ResultSet rs = getGroups.executeQuery();
         while (rs.next()) {

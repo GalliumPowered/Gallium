@@ -2,17 +2,21 @@ package org.galliumpowered.permission;
 
 import org.galliumpowered.world.entity.Player;
 
-public class PermissionOwner {
-    String name;
-    public PermissionOwner(Player player) {
-        this.name = player.getUUID();
-    }
+import java.util.ArrayList;
 
-    public PermissionOwner(Group group) {
-        this.name = group.getName();
-    }
+public interface PermissionOwner {
+    ArrayList<PermissionNode> permissions = new ArrayList<>();
+    /**
+     * Name of the permission owner
+     * @return Permission owner name
+     */
+    String getName();
 
-    public String getName() {
-        return name;
+    /**
+     * Get an {@link ArrayList} of permission nodes that this owner has
+     * @return Permission nodes.
+     */
+    default ArrayList<PermissionNode> getPermissions() {
+        return permissions;
     }
 }
