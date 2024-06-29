@@ -10,5 +10,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PluginLifecycleListener {
+    /**
+     * The state which is listened for
+     * @return The state which is listened for
+     */
     PluginLifecycleState value();
 }

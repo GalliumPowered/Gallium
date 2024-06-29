@@ -7,6 +7,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Command metadata
+ */
 public class MCommand {
     Command command;
     Object clazz;

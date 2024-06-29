@@ -29,6 +29,10 @@ public class PlayerDisconnectEvent extends Event {
         this.suppressed = suppressed;
     }
 
+    /**
+     * Whether the message should be displayed
+     * @return Whether the message should be displayed
+     */
     public boolean isSuppressed() {
         return suppressed;
     }

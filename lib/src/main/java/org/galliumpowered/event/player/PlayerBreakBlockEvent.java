@@ -19,6 +19,10 @@ public class PlayerBreakBlockEvent extends PlayerEvent {
         this.block = block;
     }
 
+    /**
+     * The block the player broke
+     * @return The block the player broke
+     */
     public WorldBlock getBlock() {
         return block;
     }

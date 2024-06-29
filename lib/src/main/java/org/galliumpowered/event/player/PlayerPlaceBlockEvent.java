@@ -20,6 +20,10 @@ public class PlayerPlaceBlockEvent extends PlayerEvent {
         this.block = block;
     }
 
+    /**
+     * The block the player placed
+     * @return The block the player placed
+     */
     public WorldBlock getBlock() {
         return block;
     }

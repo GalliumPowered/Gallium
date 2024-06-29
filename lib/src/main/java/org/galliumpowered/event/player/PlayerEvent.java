@@ -12,6 +12,10 @@ public class PlayerEvent extends CancelableEvent {
         this.player = player;
     }
 
+    /**
+     * The player calling the event
+     * @return Player calling the event
+     */
     public Player getPlayer() {
         return player;
     }

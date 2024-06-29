@@ -65,11 +65,19 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Unregister a command from the server
+     * @param alias The alias of the command
+     */
     public void unregisterCommand(String alias) {
         commands.remove(alias);
         pluginCommands.remove(alias);
     }
 
+    /**
+     * Unregister all commands from a plugin
+     * @param meta The plugin's metadata
+     */
     public void unregisterAllPluginCommands(PluginMetadata meta) {
         for (String alias : pluginCommands.keySet()) {
             if (pluginCommands.get(alias) == meta) {
@@ -78,10 +86,20 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Command names and their metadata
+     * Should not be modified under normal conditions!
+     * @return Command names and their metadata
+     */
     public HashMap<String, MCommand> getCommands() {
         return commands;
     }
 
+    /**
+     * Subcommands and their parents
+     * Should not be modified under normal conditions!
+     * @return Subcommands and their parents
+     */
     public HashMap<MCommand, MCommand> getSubcommands() {
         return subcommands;
     }

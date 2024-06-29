@@ -18,6 +18,7 @@ public interface CommandContext {
      * @return Command arguments
      */
     String[] getCommandArgs();
+
     CommandContext ifPlayer(Consumer<Player> consumer);
 
     CommandContext ifConsole(Consumer<ConsoleCommandCaller> consumer);

@@ -15,6 +15,10 @@ public class PlayerDeathEvent extends PlayerEvent {
         this.deathCause = deathCause;
     }
 
+    /**
+     * Cause of the death
+     * @return Death cause
+     */
     public String getDeathCause() {
         return deathCause;
     }

@@ -8,10 +8,10 @@ import java.util.Arrays;
 public class EventManager {
     public ArrayListMultimap<Class<? extends Event>, MListener> listeners = ArrayListMultimap.create();
 
-    public EventManager() {
-
-    }
-
+    /**
+     * Register a listener to the server
+     * @param listener The listener to register. Should be a method.
+     */
     public void registerListener(Object listener) {
         Arrays.stream(listener.getClass().getMethods())
                 .filter(method -> method.isAnnotationPresent(EventListener.class))
@@ -21,6 +21,7 @@ public class EventManager {
                     internalRegister(hookClass, new MListener(method.getAnnotation(EventListener.class), listener, method));
                 });
     }
+
     private void internalRegister(Class<?> hookClass, MListener listener) {
         listeners.put((Class<? extends Event>) hookClass, listener);
     }
