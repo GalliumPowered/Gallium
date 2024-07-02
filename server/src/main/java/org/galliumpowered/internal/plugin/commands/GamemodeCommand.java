@@ -17,13 +17,14 @@ public class GamemodeCommand {
     public void gamemodeCommand(CommandContext ctx) {
         Gamemode gamemode = Gamemode.SURVIVAL;
         AtomicReference<Player> target = new AtomicReference<>();
-        AtomicBoolean shouldContinue = new AtomicBoolean(true);
+        AtomicBoolean shouldContinue = new AtomicBoolean(true); // this is stupid i hate consumers
         ctx.ifPlayer(player -> {
             if (ctx.getCommandArgs().length == 1) {
                 ctx.getCaller().sendMessage(Component.text(Colors.LIGHT_RED + "/gamemode <survival|creative|adventure|spectator|0|1|2|3|s|c|a|sp> [player]"));
                 shouldContinue.set(false);
                 return;
             }
+
             if (ctx.getCommandArgs().length == 2) {
                 target.set(player);
             }
@@ -59,5 +60,6 @@ public class GamemodeCommand {
         }
 
         target.get().setGamemode(gamemode);
+        ctx.getCaller().sendMessage(Component.text(target.get().getName() + Colors.GREEN + " has had their gamemode changed to " + Colors.WHITE + gamemode.name()));
     }
 }
