@@ -70,7 +70,7 @@ public class Group {
     }
 
     /**
-     * Sets the group's prefix. Supports colour coding with &
+     * Sets the group's prefix. Supports colour coding with \&
      * @param prefix The prefix to set it to
      */
     public void setPrefix(String prefix) {
