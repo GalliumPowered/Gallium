@@ -7,8 +7,6 @@ val libVersion: String by project
 group = "org.galliumpowered"
 version = libVersion
 
-apply(from = "../gradle/build.gradle")
-
 dependencies {
     compileOnly("com.mojang:brigadier:1.0.18")
     implementation("org.apache.logging.log4j:log4j-core:2.19.0")

@@ -9,8 +9,6 @@ var runDir = file("./run/")
 
 runDir.mkdirs()
 
-apply(from = "../gradle/build.gradle")
-
 val libVersion: String by project
 val minecraftVersion: String by project
 
