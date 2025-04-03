@@ -10,6 +10,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.Mod;
@@ -33,6 +34,7 @@ import org.galliumpowered.command.MCommand;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -168,13 +170,20 @@ public class BridgeImpl implements Bridge {
     }
 
     @Override
-    public Optional<Player> getPlayerByName(String s) {
-        AtomicReference<Player> player = new AtomicReference<>(null);
-        Mod.getMinecraftServer().getPlayerList().getPlayers().stream()
-                .filter(serverPlayer -> serverPlayer.getName().getContents().equals(s))
-                .findFirst().ifPresent(serverPlayer -> player.set(new PlayerImpl(serverPlayer)));
+    public Optional<Player> getPlayerByName(String name) {
+        MinecraftServer server = Mod.getMinecraftServer();
 
-        return Optional.of(player.get());
+        return server.getProfileCache().get(name)
+                .map(gameProfile -> new ServerPlayer(server, server.getAllLevels().iterator().next(), gameProfile))
+                .map(PlayerImpl::new);
+    }
+
+    @Override
+    public Optional<Player> getPlayerByUUID(UUID uuid) {
+        MinecraftServer server = Mod.getMinecraftServer();
+        return server.getProfileCache().get(uuid)
+                .map(gameProfile -> new ServerPlayer(server, server.getAllLevels().iterator().next(), gameProfile))
+                .map(PlayerImpl::new);
     }
 
     @Override

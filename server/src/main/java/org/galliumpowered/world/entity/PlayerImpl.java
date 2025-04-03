@@ -5,12 +5,14 @@ import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import org.galliumpowered.Gamemode;
+import org.galliumpowered.Mod;
 import org.galliumpowered.world.World;
 import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.util.TextTransformer;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.UUID;
 
 public class PlayerImpl implements Player {
     ServerPlayer serverPlayer;
@@ -70,6 +72,12 @@ public class PlayerImpl implements Player {
     @Override
     public World getWorld() {
         return new WorldImpl(serverPlayer.level);
+    }
+
+    @Override
+    public boolean isOnline() {
+        return Mod.getMinecraftServer().getPlayerList().getPlayers().stream()
+                .anyMatch(player -> player.getUUID().equals(UUID.fromString(getUUID())));
     }
 
     @Override

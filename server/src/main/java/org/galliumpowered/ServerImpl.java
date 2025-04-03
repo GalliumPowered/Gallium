@@ -5,6 +5,7 @@ import org.galliumpowered.world.entity.PlayerImpl;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ServerImpl implements Server {
 
@@ -30,8 +31,12 @@ public class ServerImpl implements Server {
 
     @Override
     public Optional<Player> getPlayerByName(String name) {
-        return getOnlinePlayers().stream()
-                .filter(player -> player.getName().equalsIgnoreCase(name))
-                .findFirst();
+        return Gallium.getBridge().getPlayerByName(name);
     }
+
+    @Override
+    public Optional<Player> getPlayerByUUID(UUID uuid) {
+        return Gallium.getBridge().getPlayerByUUID(uuid);
+    }
+
 }

@@ -4,6 +4,7 @@ import org.galliumpowered.annotation.Args;
 import org.galliumpowered.world.entity.Player;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * For bridging NMS to lib. For internal use.
@@ -32,6 +33,14 @@ public interface Bridge {
      * @return Player (or Optional.empty() if they are not found)
      */
     Optional<Player> getPlayerByName(String name);
+
+    /**
+     * Get a {@link Player} by their UUID
+     *
+     * @param uuid UUID of the player
+     * @return Player or {@link Optional#empty} if not found
+     */
+    Optional<Player> getPlayerByUUID(UUID uuid);
 
     /**
      * Version of Minecraft the server is running.

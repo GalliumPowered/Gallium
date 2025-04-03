@@ -5,6 +5,7 @@ import org.galliumpowered.world.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface Server {
 
@@ -35,6 +36,14 @@ public interface Server {
      * @return The player, if present, otherwise an empty {@link Optional}
      */
     Optional<Player> getPlayerByName(String name);
+
+    /**
+     * Get a player by their UUID
+     *
+     * @param uuid UUID of the player
+     * @return Player UUID
+     */
+    Optional<Player> getPlayerByUUID(UUID uuid);
 
     /**
      * Send a message to everyone online

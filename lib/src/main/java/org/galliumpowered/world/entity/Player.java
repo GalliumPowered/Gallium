@@ -140,4 +140,11 @@ public interface Player extends Entity, CommandCaller, PermissionHolder {
      * @return Player world
      */
     World getWorld();
+
+    /**
+     * Get whether this player is online
+     *
+     * @return Player online status
+     */
+    boolean isOnline();
 }
