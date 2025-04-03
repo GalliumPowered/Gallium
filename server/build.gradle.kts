@@ -11,6 +11,7 @@ runDir.mkdirs()
 
 val libVersion: String by project
 val minecraftVersion: String by project
+val adventureVersion: String by project
 
 dependencies {
     implementation("org.jetbrains:annotations:24.0.0")
@@ -30,7 +31,7 @@ dependencies {
     implementation("org.joml:joml:1.10.5")
 
     // Gallium
-    implementation("net.kyori:adventure-api:4.2.0")
+    implementation("net.kyori:adventure-api:${adventureVersion}")
     implementation("net.kyori:event-method-asm:3.0.0")
     implementation("net.kyori:adventure-text-serializer-gson:4.2.0")
     implementation("org.xerial:sqlite-jdbc:3.42.0.0")

@@ -1,6 +1,8 @@
 package org.galliumpowered.internal.plugin;
 
 import com.google.inject.Inject;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.annotation.PluginLifecycleListener;
 import org.galliumpowered.internal.plugin.commands.GamemodeCommand;
@@ -22,6 +24,8 @@ import org.apache.logging.log4j.Logger;
         authors = { "GalliumPowered" },
         version = "1.0")
 public class GalliumPlugin {
+    public static final TextColor THEME = NamedTextColor.DARK_GREEN;
+
     @Inject
     private Logger log;
 

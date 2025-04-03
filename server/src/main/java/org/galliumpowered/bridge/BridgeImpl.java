@@ -1,7 +1,6 @@
 package org.galliumpowered.bridge;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -15,8 +14,8 @@ import net.minecraft.server.level.ServerPlayer;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.Mod;
 import org.galliumpowered.annotation.Args;
+import org.galliumpowered.command.ConsoleCommandCaller;
 import org.galliumpowered.command.args.ArgsTypeTranslator;
-import org.galliumpowered.command.console.ConsoleCommandCaller;
 import org.galliumpowered.internal.plugin.GalliumPlugin;
 import org.galliumpowered.plugin.PluginContainer;
 import org.galliumpowered.plugin.PluginLifecycleState;
@@ -31,8 +30,6 @@ import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.command.CommandContextImpl;
 import org.galliumpowered.command.MCommand;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;

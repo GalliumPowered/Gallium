@@ -4,6 +4,7 @@ import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.world.entity.PlayerImpl;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ServerImpl implements Server {
 
@@ -25,5 +26,12 @@ public class ServerImpl implements Server {
         });
 
         return players;
+    }
+
+    @Override
+    public Optional<Player> getPlayerByName(String name) {
+        return getOnlinePlayers().stream()
+                .filter(player -> player.getName().equalsIgnoreCase(name))
+                .findFirst();
     }
 }

@@ -1,6 +1,5 @@
 package org.galliumpowered.command;
 
-import org.galliumpowered.command.console.ConsoleCommandCaller;
 import org.galliumpowered.world.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 

@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import org.galliumpowered.world.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public interface Server {
 
@@ -26,6 +27,14 @@ public interface Server {
      * @return ArrayList of the players
      */
     ArrayList<Player> getOnlinePlayers();
+
+    /**
+     * Get a player by their name
+     *
+     * @param name Player name
+     * @return The player, if present, otherwise an empty {@link Optional}
+     */
+    Optional<Player> getPlayerByName(String name);
 
     /**
      * Send a message to everyone online
