@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.StringJoiner;
 
 public class PlayermodCommand {
-    @Command(aliases = {"playermod"}, description = "Modify a player's permissions and groups", neededPerms = "PERMSYS")
+    @Command(aliases = {"playermod"}, description = "Modify a player's permissions and groups", permission = "PERMSYS")
     public void playerModCommand(CommandContext ctx) {
         CommandCaller caller = ctx.getCaller();
         String[] args = ctx.getCommandArgs();

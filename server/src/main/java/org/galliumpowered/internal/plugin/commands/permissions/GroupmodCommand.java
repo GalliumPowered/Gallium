@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 
 public class GroupmodCommand {
-    @Command(aliases = {"groupmod"}, description = "Modify a group", neededPerms = "PERMSYS")
+    @Command(aliases = {"groupmod"}, description = "Modify a group", permission = "PERMSYS")
     public void groupmodCommand(CommandContext ctx) throws SQLException {
         String[] args = ctx.getCommandArgs();
         CommandCaller caller = ctx.getCaller();

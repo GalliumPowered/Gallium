@@ -4,12 +4,9 @@ import org.galliumpowered.Gallium;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class GroupManager {
-    private ArrayList<Group> groups = new ArrayList<>();
-
-    public GroupManager() {}
+    private final ArrayList<Group> groups = new ArrayList<>();
 
     /**
      * Add a {@link Group}
@@ -51,16 +48,8 @@ public class GroupManager {
      * @return the group
      */
     public Optional<Group> getGroupByName(String name) {
-        AtomicReference<Group> returnGroup = new AtomicReference<>();
-        groups.stream()
+        return groups.stream()
                 .filter(group -> group.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .ifPresent(returnGroup::set);
-//        System.out.println(returnGroup.get());
-        if (returnGroup.get() == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(returnGroup.get());
-        }
+                .findFirst();
     }
 }

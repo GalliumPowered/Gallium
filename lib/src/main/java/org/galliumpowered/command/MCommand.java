@@ -48,7 +48,7 @@ public class MCommand {
             if (parent == this) {
                 AtomicBoolean canExec = new AtomicBoolean(false);
                 ctx.ifConsole(caller -> canExec.set(true));
-                ctx.ifPlayer(player -> canExec.set(player.hasPermission(sub.getCommand().neededPerms())));
+                ctx.ifPlayer(player -> canExec.set(player.hasPermission(sub.getCommand().permission())));
                 if (canExec.get()) {
                     subcmdNames.addAll(Arrays.asList(sub.getCommand().aliases()));
                 }

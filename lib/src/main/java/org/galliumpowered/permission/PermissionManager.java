@@ -8,14 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 
 public class PermissionManager {
-    private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
-    public PermissionManager() {
-
-    }
+    private static final Logger log = LogManager.getLogger("Gallium/PermissionManager");
 
     /**
      * Check if a player has a permission
@@ -25,7 +21,7 @@ public class PermissionManager {
      */
     public boolean playerHasPermission(Player player, String permission) {
         log.debug("Called playerHasPermission");
-        if (Objects.equals(permission, "NONE")) return true;
+        if (permission.isEmpty()) return true;
         try {
             // Check against player
             log.debug("Checking against player...");

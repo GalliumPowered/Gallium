@@ -7,7 +7,6 @@ import net.minecraft.world.level.GameType;
 import org.galliumpowered.Gamemode;
 import org.galliumpowered.world.World;
 import org.galliumpowered.world.WorldImpl;
-import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.util.TextTransformer;
 
 import javax.annotation.Nullable;

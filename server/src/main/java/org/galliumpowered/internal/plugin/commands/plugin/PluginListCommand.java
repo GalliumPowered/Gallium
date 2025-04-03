@@ -10,7 +10,7 @@ import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.internal.plugin.GalliumPlugin;
 
 public class PluginListCommand {
-    @Command(aliases = {"pluginlist", "plugins"}, description = "Show all plugins loaded on the server", neededPerms = "PLUGINS")
+    @Command(aliases = {"pluginlist", "plugins"}, description = "Show all plugins loaded on the server", permission = "PLUGINS")
     public void pluginListCommand(CommandContext ctx) {
         ctx.getCaller().sendMessage(
                 Component.text()

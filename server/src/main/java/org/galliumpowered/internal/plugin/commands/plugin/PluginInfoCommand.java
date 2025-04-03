@@ -10,7 +10,7 @@ import org.galliumpowered.command.args.ArgumentType;
 import org.galliumpowered.internal.plugin.GalliumPlugin;
 
 public class PluginInfoCommand {
-    @Command(aliases = {"plugininfo"}, description = "Show information about a plugin", neededPerms = "PLUGINS", args = @Args(type = ArgumentType.SINGLE, name = "plugin"))
+    @Command(aliases = {"plugininfo"}, description = "Show information about a plugin", permission = "PLUGINS", args = @Args(type = ArgumentType.SINGLE, name = "plugin"))
     public void pluginInfoCommand(CommandContext ctx) {
         ctx.getArgument("plugin").ifPresentOrElse(pluginId -> {
             Gallium.getPluginManager().getPluginById(pluginId).ifPresentOrElse(container -> {

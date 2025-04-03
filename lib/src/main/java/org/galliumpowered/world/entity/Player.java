@@ -6,7 +6,7 @@ import org.galliumpowered.Gallium;
 import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.permission.Group;
-import org.galliumpowered.permission.PermissionOwner;
+import org.galliumpowered.permission.PermissionHolder;
 import org.galliumpowered.world.World;
 
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-public interface Player extends Entity, CommandCaller {
+public interface Player extends Entity, CommandCaller, PermissionHolder {
     /**
      * Get the player's UUID
      * @return the uuid
@@ -87,7 +87,7 @@ public interface Player extends Entity, CommandCaller {
      * @throws SQLException
      */
     default void addPermission(String permission) throws SQLException {
-        Gallium.getDatabase().insertPermission(permission, new PermissionOwner(this));
+        Gallium.getDatabase().insertPermission(permission, this);
     }
 
     /**
@@ -96,7 +96,7 @@ public interface Player extends Entity, CommandCaller {
      * @throws SQLException
      */
     default void removePermission(String permission) throws SQLException {
-        Gallium.getDatabase().removePermission(permission, new PermissionOwner(this));
+        Gallium.getDatabase().removePermission(permission, this);
     }
 
     /**

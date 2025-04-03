@@ -27,7 +27,7 @@ public @interface Command {
      * Required permissions
      * TODO-ish
      */
-    String neededPerms() default "NONE";
+    String permission() default "";
 
     Args[] args() default {};
 }

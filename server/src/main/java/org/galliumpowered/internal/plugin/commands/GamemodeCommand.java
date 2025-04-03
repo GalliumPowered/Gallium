@@ -5,20 +5,17 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.Gamemode;
 import org.galliumpowered.annotation.Command;
-import org.galliumpowered.chat.Colors;
 import org.galliumpowered.internal.plugin.GalliumPlugin;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.util.NumberUtils;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class GamemodeCommand {
     private static final Component USAGE = Component.text("/gamemode <survival|creative|adventure|spectator|0|1|2|3|s|c|a|sp> [player]").color(NamedTextColor.RED);
 
-    @Command(aliases = { "gamemode", "gm" }, description = "Change a gamemode", neededPerms = "GAMEMODE")
+    @Command(aliases = { "gamemode", "gm" }, description = "Change a gamemode", permission = "GAMEMODE")
     public void gamemodeCommand(CommandContext ctx) {
         Gamemode gamemode = Gamemode.SURVIVAL;
         Player target = null;

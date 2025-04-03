@@ -6,7 +6,7 @@ import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.exceptions.GalliumDatabaseException;
 import org.galliumpowered.permission.Group;
 import org.galliumpowered.permission.GroupManager;
-import org.galliumpowered.permission.PermissionOwner;
+import org.galliumpowered.permission.PermissionHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -239,7 +239,7 @@ public class Database {
      * @param owner group or player permission owner
      * @throws SQLException
      */
-    public void insertPermission(String permission, PermissionOwner owner) throws SQLException {
+    public void insertPermission(String permission, PermissionHolder owner) throws SQLException {
         insertPermission.setString(1, permission);
         insertPermission.setString(2, owner.getName());
         insertPermission.execute();
@@ -251,7 +251,7 @@ public class Database {
      * @param owner group or player permission owner
      * @throws SQLException
      */
-    public void removePermission(String permission, PermissionOwner owner) throws SQLException {
+    public void removePermission(String permission, PermissionHolder owner) throws SQLException {
         removePermisson.setString(1, permission);
         removePermisson.setString(2, owner.getName());
         removePermisson.execute();
