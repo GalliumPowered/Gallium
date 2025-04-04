@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class PlayerImpl implements Player {
     private static final int MAX_WIDTH = 320;
-    private static final int MAX_LINES = 20;
+    private static final int PAGE_SIZE_LIMIT = 18;
     private final ServerPlayer serverPlayer;
 
     public PlayerImpl(ServerPlayer serverPlayer) {
@@ -104,7 +104,7 @@ public class PlayerImpl implements Player {
                 .appendNewline()
                 .append(Component.join(JoinConfiguration.newlines(),
                         paginationList.getContents().subList(0,
-                                Math.min(paginationList.getContents().size(), getMaxChatLines()))))
+                                Math.min(paginationList.getContents().size(), getMaxPaginationLines()))))
                 .appendNewline()
                 .append(PaginationUtils.generateBottom(paginationList.getPadding(), MAX_WIDTH)));
 
@@ -112,8 +112,8 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public int getMaxChatLines() {
-        return MAX_LINES;
+    public int getMaxPaginationLines() {
+        return PAGE_SIZE_LIMIT;
     }
 
     @Override

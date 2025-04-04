@@ -13,12 +13,12 @@ public class PaginationManager {
         Page page = pages.get(audience.getPaginationIdentifier());
 
         int maxIndex = page.paginationList.getContents().size();
-        int newIndex = Math.min(page.index + audience.getMaxChatLines(), maxIndex);
+        int newIndex = Math.min(page.index + audience.getMaxPaginationLines(), maxIndex);
 
         page.index = newIndex;
 
         List<Component> contents = page.paginationList.getContents().subList(newIndex,
-                Math.min(newIndex + audience.getMaxChatLines(), maxIndex));
+                Math.min(newIndex + audience.getMaxPaginationLines(), maxIndex));
 
         audience.sendPaginationList(PaginationList.builder()
                 .title(page.paginationList.getTitle())
@@ -30,10 +30,10 @@ public class PaginationManager {
     public void previousPage(PaginationListAudience audience) {
         Page page = pages.get(audience.getPaginationIdentifier());
 
-        int newIndex = Math.max(page.index - audience.getMaxChatLines(), 0);
+        int newIndex = Math.max(page.index - audience.getMaxPaginationLines(), 0);
 
         List<Component> contents = page.paginationList.getContents().subList(newIndex,
-                Math.min(newIndex + audience.getMaxChatLines(), page.paginationList.getContents().size()));
+                Math.min(newIndex + audience.getMaxPaginationLines(), page.paginationList.getContents().size()));
 
         page.index = newIndex;
 

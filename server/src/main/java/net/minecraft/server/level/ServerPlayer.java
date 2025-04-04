@@ -138,8 +138,6 @@ import net.minecraft.world.scores.Team.Visibility;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.galliumpowered.Gallium;
-import org.galliumpowered.chat.Colors;
 import org.galliumpowered.event.player.PlayerDeathEvent;
 import org.galliumpowered.world.entity.PlayerImpl;
 

@@ -38,7 +38,7 @@ public class ConsoleCommandCaller implements CommandCaller {
                 .appendNewline()
                 .append(Component.join(JoinConfiguration.newlines(),
                         paginationList.getContents().subList(0,
-                                Math.min(paginationList.getContents().size(), getMaxChatLines()))))
+                                Math.min(paginationList.getContents().size(), getMaxPaginationLines()))))
                 .appendNewline()
                 .append(PaginationUtils.generateBottom(paginationList.getPadding(), MAX_WIDTH)));
 
@@ -46,7 +46,7 @@ public class ConsoleCommandCaller implements CommandCaller {
     }
 
     @Override
-    public int getMaxChatLines() {
+    public int getMaxPaginationLines() {
         return 30;
     }
 
