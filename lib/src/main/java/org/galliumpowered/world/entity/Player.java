@@ -14,13 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface Player extends Entity, CommandCaller, PermissionHolder, PaginationListAudience {
     /**
      * Get the player's UUID
      * @return the uuid
      */
-    String getUUID();
+    UUID getUUID();
 
     /**
      * Whether the player has a permission

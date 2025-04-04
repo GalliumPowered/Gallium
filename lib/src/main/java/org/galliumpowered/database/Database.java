@@ -76,7 +76,7 @@ public class Database {
      */
     public void insertPlayer(Player player) {
         try {
-            insertPlayer.setString(1, player.getUUID());
+            insertPlayer.setString(1, player.getUUID().toString());
             insertPlayer.execute();
         } catch (SQLException e) {
             throw new GalliumDatabaseException(e);
@@ -103,7 +103,7 @@ public class Database {
      */
 
     public boolean playerExists(Player player) throws SQLException {
-        getPlayer.setString(1, player.getUUID());
+        getPlayer.setString(1, player.getUUID().toString());
         ResultSet rs = getPlayer.executeQuery();
         return rs.next();
     }
@@ -120,7 +120,7 @@ public class Database {
         } else {
             setGroup.setString(1, group.getName());
         }
-        setGroup.setString(2, player.getUUID());
+        setGroup.setString(2, player.getUUID().toString());
         setGroup.execute();
     }
 
@@ -132,7 +132,7 @@ public class Database {
     public Optional<Group> getPlayerGroup(Player player) {
         log.debug("getting player group");
         try {
-            getPlayerGroup.setString(1, player.getUUID());
+            getPlayerGroup.setString(1, player.getUUID().toString());
             ResultSet rs = getPlayerGroup.executeQuery();
             if (rs.next()) {
                 log.debug("a");
@@ -149,7 +149,7 @@ public class Database {
     public ArrayList<String> getPlayerPermissions(Player player) {
         try {
             ArrayList<String> permissions = new ArrayList();
-            getPlayerPermisions.setString(1, player.getUUID());
+            getPlayerPermisions.setString(1, player.getUUID().toString());
             ResultSet rs = getPlayerPermisions.executeQuery();
             while (rs.next()) {
                 permissions.add(rs.getString("node"));
@@ -200,7 +200,7 @@ public class Database {
     // FIXME
     public String getPlayerPrefix(Player player) {
         try {
-            getPlayerPrefix.setString(1, player.getUUID());
+            getPlayerPrefix.setString(1, player.getUUID().toString());
             ResultSet rs = getPlayerPrefix.executeQuery();
             if (rs.next()) {
                 // Get from player
@@ -229,7 +229,7 @@ public class Database {
      */
     public void setPlayerPrefix(Player player, String prefix) throws SQLException {
         setPlayerPrefix.setString(2, prefix);
-        setPlayerPrefix.setString(1, player.getUUID());
+        setPlayerPrefix.setString(1, player.getUUID().toString());
         setPlayerPrefix.execute();
     }
 
@@ -267,7 +267,7 @@ public class Database {
     public boolean playerHasPermission(String permission, Player player) throws SQLException {
         log.debug("called playerHasPermission (Database)");
         hasPermission.setString(1, permission);
-        hasPermission.setString(2, player.getUUID());
+        hasPermission.setString(2, player.getUUID().toString());
         ResultSet rs = hasPermission.executeQuery();
         return rs.next();
     }

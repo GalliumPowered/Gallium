@@ -15,7 +15,6 @@ import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.util.TextTransformer;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,8 +28,8 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public String getUUID() {
-        return serverPlayer.getUUID().toString().strip();
+    public UUID getUUID() {
+        return serverPlayer.getUUID();
     }
 
     @Override
@@ -86,7 +85,7 @@ public class PlayerImpl implements Player {
     @Override
     public boolean isOnline() {
         return Mod.getMinecraftServer().getPlayerList().getPlayers().stream()
-                .anyMatch(player -> player.getUUID().equals(UUID.fromString(getUUID())));
+                .anyMatch(player -> player.getUUID().equals(getUUID()));
     }
 
     @Override
@@ -119,6 +118,6 @@ public class PlayerImpl implements Player {
 
     @Override
     public String getPaginationIdentifier() {
-        return getUUID();
+        return getUUID().toString();
     }
 }
