@@ -147,4 +147,11 @@ public interface Player extends Entity, CommandCaller, PermissionHolder {
      * @return Player online status
      */
     boolean isOnline();
+
+    /**
+     * Get whether this player is a server operator
+     *
+     * @return Server operator status
+     */
+    boolean isOperator();
 }

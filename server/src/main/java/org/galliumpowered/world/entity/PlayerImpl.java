@@ -81,6 +81,11 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public boolean isOperator() {
+        return Mod.getMinecraftServer().getPlayerList().isOp(serverPlayer.getGameProfile());
+    }
+
+    @Override
     public String getName() {
         return serverPlayer.getName().getContents().strip();
     }

@@ -1,7 +1,6 @@
 package org.galliumpowered;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.dedicated.DedicatedServer;
 import org.galliumpowered.bridge.BridgeImpl;
 import org.galliumpowered.command.CommandManager;
 import org.galliumpowered.database.Database;

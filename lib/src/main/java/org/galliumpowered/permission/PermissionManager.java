@@ -22,6 +22,7 @@ public class PermissionManager {
     public boolean playerHasPermission(Player player, String permission) {
         log.debug("Called playerHasPermission");
         if (permission.isEmpty()) return true;
+        if (player.isOperator()) return true;
         try {
             // Check against player
             log.debug("Checking against player...");
