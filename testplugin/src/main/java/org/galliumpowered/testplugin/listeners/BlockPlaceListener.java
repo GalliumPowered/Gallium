@@ -13,7 +13,7 @@ public class BlockPlaceListener {
 
     @EventListener
     public void onBlockPlace(PlayerPlaceBlockEvent event) {
-        logger.info("Player {} placed block {} in dimension {} at {} {} {} ",
+        logger.info("(DEBUG) Player {} placed block {} in dimension {} at {} {} {} ",
                 event.getPlayer().getName(),
                 event.getBlock().getId(),
                 event.getBlock().getWorld().getDimension(),

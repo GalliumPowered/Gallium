@@ -10,7 +10,8 @@ public class PlayerDeathEvent extends PlayerEvent {
      * @param player The Player
      * @param deathCause The cause of the player's death
      */
-    public PlayerDeathEvent(Player player, String deathCause) { // TODO: Make deathCause some sort of damageSource or something, which provides additional information.
+    // TODO: Make deathCause some sort of damageSource or something, which provides additional information.
+    public PlayerDeathEvent(Player player, String deathCause) {
         super(player);
         this.deathCause = deathCause;
     }

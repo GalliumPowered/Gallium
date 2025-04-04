@@ -14,7 +14,7 @@ public class BlockBreakListener {
 
     @EventListener
     public void onBlockBreak(PlayerBreakBlockEvent event) {
-        logger.info("Player {} broke block {} in dimension {} at {} {} {} ",
+        logger.info("(DEBUG) Player {} broke block {} in dimension {} at {} {} {} ",
                 event.getPlayer().getName(),
                 event.getBlock().getId(),
                 event.getBlock().getWorld().getDimension(),
