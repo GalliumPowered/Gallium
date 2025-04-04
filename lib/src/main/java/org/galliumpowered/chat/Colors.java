@@ -1,6 +1,6 @@
 package org.galliumpowered.chat;
 
-@Deprecated(since = "1.2")
+@Deprecated(since = "1.2.0")
 public class Colors {
 
     public static final String BLACK = "\u00A70";
