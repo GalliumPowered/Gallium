@@ -1,6 +1,7 @@
 package org.galliumpowered.testplugin.commands;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.annotation.Args;
 import org.galliumpowered.annotation.Command;
@@ -96,5 +97,26 @@ public class TestCommands {
         ).ifConsole(console ->
                 console.sendMessage("You're the console, silly, of course you're op.")
         );
+    }
+
+    @Command(aliases = "searchplayer", description = "Search for a player (debug command)", args = {
+            @Args(type = ArgumentType.SINGLE, name = "username")
+    })
+    public void searchPlayerCommand(CommandContext ctx) {
+        ctx.getArgument("username").ifPresentOrElse(username -> {
+            // Search for the player by their username
+            Gallium.getServer().getPlayerByName(username).ifPresentOrElse(player -> {
+                ctx.getCaller().sendMessage(
+                        "Found player! Username: " + player.getName() + " UUID: " +
+                                player.getUUID());
+            }, () -> {
+                ctx.getCaller().sendMessage(
+                        Component.text("Could not find that player").color(NamedTextColor.RED));
+            });
+
+        }, () -> {
+            ctx.getCaller()
+                    .sendMessage(Component.text("Specify a username!").color(NamedTextColor.RED));
+        });
     }
 }
