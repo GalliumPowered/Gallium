@@ -8,7 +8,6 @@ import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.pagination.PaginationListAudience;
 import org.galliumpowered.permission.Group;
 import org.galliumpowered.permission.PermissionHolder;
-import org.galliumpowered.world.World;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -119,29 +118,10 @@ public interface Player extends Entity, CommandCaller, PermissionHolder, Paginat
     }
 
     /**
-     * Teleport the player
-     * @param x The X coordinate
-     * @param y The Y coordinate
-     * @param z The Z coordinate
-     */
-    void teleport(double x, double y, double z);
-
-    /**
      * Set the player's {@link Gamemode}
      * @param gamemode The {@link Gamemode}
      */
     void setGamemode(Gamemode gamemode);
-
-    /**
-     * Kill the player
-     */
-    void kill();
-
-    /**
-     * Gets the player's current {@link World}
-     * @return Player world
-     */
-    World getWorld();
 
     /**
      * Get whether this player is online
