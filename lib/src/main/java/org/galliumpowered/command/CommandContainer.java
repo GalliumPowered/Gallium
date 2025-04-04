@@ -8,14 +8,15 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Command metadata
+ * A container for a {@link Command}, including its metadata,
+ * executor, and class.
  */
-public class MCommand {
+public class CommandContainer {
     Command command;
     Object clazz;
     Method method;
 
-    public MCommand(Command command, Object clazz, Method method) {
+    public CommandContainer(Command command, Object clazz, Method method) {
         this.command = command;
         this.clazz = clazz;
         this.method = method;

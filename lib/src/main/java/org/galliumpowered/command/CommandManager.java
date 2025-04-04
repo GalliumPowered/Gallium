@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager {
-    private HashMap<String, MCommand> commands = new HashMap<>();
+    private HashMap<String, CommandContainer> commands = new HashMap<>();
     private ConcurrentHashMap<String, PluginMetadata> pluginCommands = new ConcurrentHashMap<>();
-    private HashMap<MCommand, MCommand> subcommands = new HashMap<>();
+    private HashMap<CommandContainer, CommandContainer> subcommands = new HashMap<>();
 
     /**
      * Register a command on the server
@@ -33,11 +33,11 @@ public class CommandManager {
             .filter(method -> method.isAnnotationPresent(Command.class))
             .filter(method -> method.getParameters().length == 1)
             .filter(method -> method.getParameterTypes()[0] == CommandContext.class)
-            .map(method -> new MCommand(method.getAnnotation(Command.class), command, method))
+            .map(method -> new CommandContainer(method.getAnnotation(Command.class), command, method))
             .forEach(cmd -> doRegister(cmd, meta));
     }
 
-    private void doRegister(MCommand cmd, PluginMetadata meta) {
+    private void doRegister(CommandContainer cmd, PluginMetadata meta) {
         if (!cmd.getCommand().parent().equals("")) {
             // Subcommand
             subcommands.put(commands.get(cmd.getCommand().parent()), cmd);
@@ -54,7 +54,7 @@ public class CommandManager {
         }
     }
 
-    private void internalRegister(String alias, MCommand cmd, PluginMetadata meta) {
+    private void internalRegister(String alias, CommandContainer cmd, PluginMetadata meta) {
         if (cmd.getCommand().args().length == 0) {
             Gallium.getBridge().registerCommand(alias, cmd.getCommand().permission());
             Gallium.getBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().permission());
@@ -91,7 +91,7 @@ public class CommandManager {
      * Should not be modified under normal conditions!
      * @return Command names and their metadata
      */
-    public HashMap<String, MCommand> getCommands() {
+    public HashMap<String, CommandContainer> getCommands() {
         return commands;
     }
 
@@ -100,7 +100,7 @@ public class CommandManager {
      * Should not be modified under normal conditions!
      * @return Subcommands and their parents
      */
-    public HashMap<MCommand, MCommand> getSubcommands() {
+    public HashMap<CommandContainer, CommandContainer> getSubcommands() {
         return subcommands;
     }
 }

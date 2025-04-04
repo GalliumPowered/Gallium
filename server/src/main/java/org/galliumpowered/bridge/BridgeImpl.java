@@ -29,7 +29,7 @@ import org.galliumpowered.world.entity.PlayerImpl;
 import org.galliumpowered.exceptions.CommandException;
 import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.command.CommandContextImpl;
-import org.galliumpowered.command.MCommand;
+import org.galliumpowered.command.CommandContainer;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -96,7 +96,7 @@ public class BridgeImpl implements Bridge {
             String alias = args[0].toLowerCase();
             alias = alias.startsWith("/") ? alias.substring(1) : alias;
 
-            MCommand command = Gallium.getCommandManager().getCommands().get(alias);
+            CommandContainer command = Gallium.getCommandManager().getCommands().get(alias);
             if (command == null) {
                 return builder.build();
             }
@@ -130,7 +130,7 @@ public class BridgeImpl implements Bridge {
         String alias = args[0].toLowerCase();
         alias = alias.startsWith("/") ? alias.substring(1) : alias;
 
-        AtomicReference<MCommand> command = new AtomicReference<>(Gallium.getCommandManager().getCommands().get(alias));
+        AtomicReference<CommandContainer> command = new AtomicReference<>(Gallium.getCommandManager().getCommands().get(alias));
 
         // Check against subcommands, but only if there could be a subcommand
         if (args.length > 1) {
