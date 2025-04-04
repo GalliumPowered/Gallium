@@ -1,5 +1,6 @@
 package org.galliumpowered.world.entity;
 
+import org.galliumpowered.util.Position;
 import org.galliumpowered.world.World;
 
 public interface Entity {
@@ -29,5 +30,20 @@ public interface Entity {
      * @param y The Y coordinate
      * @param z The Z coordinate
      */
+    @Deprecated(since = "1.2.0")
     void teleport(double x, double y, double z);
+
+    /**
+     * Set this entity's position
+     *
+     * @param position The position to teleport this entity to
+     */
+    void setPosition(Position position);
+
+    /**
+     * Get this entity's position
+     *
+     * @return Entity position
+     */
+    Position getPosition();
 }

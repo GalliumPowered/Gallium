@@ -10,6 +10,7 @@ import org.galliumpowered.Gamemode;
 import org.galliumpowered.Mod;
 import org.galliumpowered.pagination.PaginationList;
 import org.galliumpowered.pagination.PaginationUtils;
+import org.galliumpowered.util.Position;
 import org.galliumpowered.world.World;
 import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.util.TextTransformer;
@@ -65,6 +66,16 @@ public class PlayerImpl implements Player {
     @Override
     public void teleport(double x, double y, double z) {
         serverPlayer.teleportTo(x, y, z);
+    }
+
+    @Override
+    public void setPosition(Position position) {
+        serverPlayer.teleportTo(position.getX(), position.getY(), position.getZ());
+    }
+
+    @Override
+    public Position getPosition() {
+        return Position.of(serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ());
     }
 
     @Override
