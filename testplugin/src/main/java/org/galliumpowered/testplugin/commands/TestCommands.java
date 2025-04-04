@@ -88,4 +88,13 @@ public class TestCommands {
             Gallium.getServer().sendMsgToAll(Component.text(player.getPrefix() + player.getName() + Colors.GREEN + " took the easy way out."));
         });
     }
+
+    @Command(aliases = "amiop", description = "Check if you are an operator")
+    public void checkOpCommand(CommandContext ctx) {
+        ctx.ifPlayer(player ->
+                player.sendMessage(Component.text(player.isOperator()))
+        ).ifConsole(console ->
+                console.sendMessage("You're the console, silly, of course you're op.")
+        );
+    }
 }

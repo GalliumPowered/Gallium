@@ -2,6 +2,7 @@ package org.galliumpowered;
 
 import org.galliumpowered.bridge.Bridge;
 import org.galliumpowered.command.CommandManager;
+import org.galliumpowered.data.ServerOperator;
 import org.galliumpowered.database.Database;
 import org.galliumpowered.event.EventDispatcher;
 import org.galliumpowered.event.EventManager;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public abstract class Gallium {
     private static final Logger log;
@@ -33,6 +35,7 @@ public abstract class Gallium {
     protected File bannedPlayersFile;
     protected File pluginsDirectory;
     protected File pluginConfigDirectory;
+    protected List<ServerOperator> operators;
     private static boolean pluginsLoaded = false;
     protected Server server;
 
@@ -162,6 +165,14 @@ public abstract class Gallium {
      */
     public static File getPluginConfigDirectory() {
         return instance.pluginConfigDirectory;
+    }
+
+    /**
+     * Get all server operators
+     * @return Server operator list
+     */
+    public static List<ServerOperator> getOperators() {
+        return instance.operators;
     }
 
     /**

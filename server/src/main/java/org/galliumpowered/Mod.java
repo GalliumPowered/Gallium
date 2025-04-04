@@ -1,7 +1,6 @@
 package org.galliumpowered;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.dedicated.DedicatedServer;
 import org.galliumpowered.bridge.BridgeImpl;
 import org.galliumpowered.command.CommandManager;
 import org.galliumpowered.database.Database;
@@ -16,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Mod extends Gallium {
     public static final Logger log = LogManager.getLogger();
@@ -57,6 +57,7 @@ public class Mod extends Gallium {
         this.opListFile = new File("data/ops.json");
         this.whitelistFile = new File("data/whitelist.json");
         this.pluginConfigDirectory = new File("config/");
+        this.operators = new ArrayList<>();
 
         try {
             database.addGroupsToGroupManager(groupManager);

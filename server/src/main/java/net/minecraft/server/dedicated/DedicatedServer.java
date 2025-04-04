@@ -7,13 +7,18 @@ package net.minecraft.server.dedicated;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.datafixers.DataFixer;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Writer;
 import java.net.InetAddress;
 import java.net.Proxy;
@@ -24,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.BooleanSupplier;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
@@ -69,6 +75,7 @@ import net.minecraft.world.level.storage.WorldData;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.GalliumConsole;
 import org.galliumpowered.Mod;
+import org.galliumpowered.data.ServerOperator;
 import org.galliumpowered.event.system.ServerStartEvent;
 import org.apache.logging.log4j.LogManager;
 import org.galliumpowered.plugin.PluginLifecycleState;
@@ -199,7 +206,25 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
             long m = Util.getNanos() - l;
             String string = String.format(Locale.ROOT, "%.3fs", (double)m / 1.0E9);
 
-            new ServerStartEvent().call(); // Gallium
+            // Gallium: Server start logic
+            try (Reader reader = new FileReader(Gallium.getOpListFile())) {
+                JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+                jsonArray.forEach(op -> {
+                    JsonObject json = op.getAsJsonObject();
+                    UUID uuid = UUID.fromString(json.get("uuid").getAsString());
+                    Gallium.getServer().getPlayerByUUID(uuid).ifPresent(player -> {
+                        int level = json.get("level").getAsInt();
+                        boolean bypassesPlayerLimit = json.get("bypassesPlayerLimit").getAsBoolean();
+                        Gallium.getOperators().add(new ServerOperator(player, level, bypassesPlayerLimit));
+                    });
+                });
+            } catch (IOException e) {
+                // not good!
+                throw new RuntimeException(e);
+            }
+
+            new ServerStartEvent().call();
+            // Gallium end
 
             logger.info("Done ({})! For help, type \"help\"", string);
             if (dedicatedServerProperties.announcePlayerAchievements != null) {
