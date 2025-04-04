@@ -1,24 +1,33 @@
 package org.galliumpowered.world.entity;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.JoinConfiguration;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
+import org.galliumpowered.Gallium;
 import org.galliumpowered.Gamemode;
 import org.galliumpowered.Mod;
+import org.galliumpowered.pagination.PaginationList;
+import org.galliumpowered.pagination.PaginationUtils;
 import org.galliumpowered.world.World;
 import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.util.TextTransformer;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerImpl implements Player {
-    ServerPlayer serverPlayer;
+    private static final int MAX_WIDTH = 320;
+    private static final int MAX_LINES = 20;
+    private final ServerPlayer serverPlayer;
+
     public PlayerImpl(ServerPlayer serverPlayer) {
         this.serverPlayer = serverPlayer;
     }
+
     @Override
     public String getUUID() {
         return serverPlayer.getUUID().toString().strip();
@@ -88,5 +97,28 @@ public class PlayerImpl implements Player {
     @Override
     public String getName() {
         return serverPlayer.getName().getContents().strip();
+    }
+
+    @Override
+    public void sendPaginationList(PaginationList paginationList) {
+        sendMessage(PaginationUtils.generateTitle(paginationList, MAX_WIDTH)
+                .appendNewline()
+                .append(Component.join(JoinConfiguration.newlines(),
+                        paginationList.getContents().subList(0,
+                                Math.min(paginationList.getContents().size(), getMaxChatLines()))))
+                .appendNewline()
+                .append(PaginationUtils.generateBottom(paginationList.getPadding(), MAX_WIDTH)));
+
+        Gallium.getPaginationManager().submit(this, paginationList);
+    }
+
+    @Override
+    public int getMaxChatLines() {
+        return MAX_LINES;
+    }
+
+    @Override
+    public String getPaginationIdentifier() {
+        return getUUID();
     }
 }

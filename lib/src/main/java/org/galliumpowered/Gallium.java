@@ -5,6 +5,7 @@ import org.galliumpowered.command.CommandManager;
 import org.galliumpowered.database.Database;
 import org.galliumpowered.event.EventDispatcher;
 import org.galliumpowered.event.EventManager;
+import org.galliumpowered.pagination.PaginationManager;
 import org.galliumpowered.permission.GroupManager;
 import org.galliumpowered.permission.PermissionManager;
 import org.galliumpowered.plugin.PluginManager;
@@ -24,6 +25,7 @@ public abstract class Gallium {
     protected PluginManager pluginManager;
     protected EventManager eventManager;
     protected EventDispatcher eventDispatcher;
+    protected PaginationManager paginationManager;
     protected Bridge bridge;
     protected File galliumConfig;
     protected File serverProperties;
@@ -100,6 +102,14 @@ public abstract class Gallium {
      */
     public static EventDispatcher getEventDispatcher() {
         return instance.eventDispatcher;
+    }
+
+    /**
+     * Get the pagination manager
+     * @return Pagination manager
+     */
+    public static PaginationManager getPaginationManager() {
+        return instance.paginationManager;
     }
 
     /**

@@ -5,6 +5,7 @@ import org.galliumpowered.Gamemode;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandCaller;
+import org.galliumpowered.pagination.PaginationListAudience;
 import org.galliumpowered.permission.Group;
 import org.galliumpowered.permission.PermissionHolder;
 import org.galliumpowered.world.World;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-public interface Player extends Entity, CommandCaller, PermissionHolder {
+public interface Player extends Entity, CommandCaller, PermissionHolder, PaginationListAudience {
     /**
      * Get the player's UUID
      * @return the uuid

@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.annotation.PluginLifecycleListener;
 import org.galliumpowered.internal.plugin.commands.GamemodeCommand;
+import org.galliumpowered.internal.plugin.commands.PageCommand;
 import org.galliumpowered.internal.plugin.commands.PingCommand;
 import org.galliumpowered.internal.plugin.commands.permissions.GroupmodCommand;
 import org.galliumpowered.internal.plugin.commands.permissions.PlayermodCommand;
@@ -43,7 +44,7 @@ public class GalliumPlugin {
         Gallium.getCommandManager().registerCommand(new GroupmodCommand(), pluginContainer);
         Gallium.getCommandManager().registerCommand(new GamemodeCommand(), pluginContainer);
         Gallium.getCommandManager().registerCommand(new PluginInfoCommand(), pluginContainer);
-//        Gallium.getCommandManager().registerCommand(new TestCommand(), pluginContainer);
+        Gallium.getCommandManager().registerCommand(new PageCommand(), pluginContainer);
 
         // Listener registration
         Gallium.getEventManager().registerListener(new PlayerJoinListener());

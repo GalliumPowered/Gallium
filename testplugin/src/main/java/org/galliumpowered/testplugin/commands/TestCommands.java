@@ -8,6 +8,9 @@ import org.galliumpowered.annotation.Command;
 import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.command.args.ArgumentType;
+import org.galliumpowered.pagination.PaginationList;
+
+import java.util.List;
 
 public class TestCommands {
     @Command(
@@ -118,5 +121,47 @@ public class TestCommands {
             ctx.getCaller()
                     .sendMessage(Component.text("Specify a username!").color(NamedTextColor.RED));
         });
+    }
+
+    @Command(aliases = "paginationlist", description = "Generate a debug pagination list")
+    public void paginationListCommand(CommandContext ctx) {
+        // lol
+        List<Component> contents = List.of(
+                Component.text("Hello there!"),
+                Component.text("That's what Obi Wan Kenobi said"),
+                Component.text("or it was something a bit like that."),
+                Component.text("This needs lots of entries."),
+                Component.text("20 or more in fact."),
+                Component.text("You can contribute if you want."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("Or perhaps I should just make this repeat..."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first."),
+                Component.text("This should appear on the second page, but not the first.")
+        );
+        ctx.getCaller().sendPaginationList(PaginationList.builder()
+                        .title(Component.text("Hello world, this is a pagination list!").color(NamedTextColor.GOLD))
+                        .contents(contents)
+                        .padding(Component.text("=").color(NamedTextColor.DARK_GREEN))
+                        .build()
+        );
     }
 }

@@ -7,6 +7,7 @@ import org.galliumpowered.database.Database;
 import org.galliumpowered.event.EventDispatcherImpl;
 import org.galliumpowered.event.EventManager;
 import org.galliumpowered.exceptions.GalliumDatabaseException;
+import org.galliumpowered.pagination.PaginationManager;
 import org.galliumpowered.permission.GroupManager;
 import org.galliumpowered.permission.PermissionManager;
 import org.galliumpowered.plugin.PluginManager;
@@ -50,6 +51,7 @@ public class Mod extends Gallium {
         this.pluginManager = new PluginManager();
         this.eventManager = new EventManager();
         this.eventDispatcher = new EventDispatcherImpl();
+        this.paginationManager = new PaginationManager();
         this.serverProperties = new File("config/server.properties");
         this.bannedIPsFile = new File("data/banned-ips.json");
         this.bannedPlayersFile = new File("data/banned-players.json");
