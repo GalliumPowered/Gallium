@@ -74,10 +74,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.WorldData;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.GalliumConsole;
-import org.galliumpowered.Mod;
-import org.galliumpowered.data.ServerOperator;
 import org.galliumpowered.event.system.ServerStartEvent;
-import org.apache.logging.log4j.LogManager;
 import org.galliumpowered.plugin.PluginLifecycleState;
 
 public class DedicatedServer extends MinecraftServer implements ServerInterface {
@@ -206,25 +203,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface 
             long m = Util.getNanos() - l;
             String string = String.format(Locale.ROOT, "%.3fs", (double)m / 1.0E9);
 
-            // Gallium: Server start logic
-            try (Reader reader = new FileReader(Gallium.getOpListFile())) {
-                JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
-                jsonArray.forEach(op -> {
-                    JsonObject json = op.getAsJsonObject();
-                    UUID uuid = UUID.fromString(json.get("uuid").getAsString());
-                    Gallium.getServer().getPlayerByUUID(uuid).ifPresent(player -> {
-                        int level = json.get("level").getAsInt();
-                        boolean bypassesPlayerLimit = json.get("bypassesPlayerLimit").getAsBoolean();
-                        Gallium.getOperators().add(new ServerOperator(player, level, bypassesPlayerLimit));
-                    });
-                });
-            } catch (IOException e) {
-                // not good!
-                throw new RuntimeException(e);
-            }
-
-            new ServerStartEvent().call();
-            // Gallium end
+            new ServerStartEvent().call(); // Gallium
 
             logger.info("Done ({})! For help, type \"help\"", string);
             if (dedicatedServerProperties.announcePlayerAchievements != null) {

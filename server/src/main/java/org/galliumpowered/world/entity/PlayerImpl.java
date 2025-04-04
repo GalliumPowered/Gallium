@@ -4,10 +4,8 @@ import net.kyori.adventure.text.Component;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
-import org.galliumpowered.Gallium;
 import org.galliumpowered.Gamemode;
 import org.galliumpowered.Mod;
-import org.galliumpowered.data.ServerOperator;
 import org.galliumpowered.world.World;
 import org.galliumpowered.world.WorldImpl;
 import org.galliumpowered.util.TextTransformer;
@@ -84,9 +82,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public boolean isOperator() {
-        return Gallium.getOperators().stream()
-                .map(ServerOperator::getPlayer)
-                .anyMatch(player -> player.equals(this));
+        return Mod.getMinecraftServer().getPlayerList().isOp(serverPlayer.getGameProfile());
     }
 
     @Override
