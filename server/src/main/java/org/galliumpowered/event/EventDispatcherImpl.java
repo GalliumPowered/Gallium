@@ -14,7 +14,6 @@ public class EventDispatcherImpl implements EventDispatcher {
     public void callEvent(Event event) {
         for (MListener listener : eventManager.listeners.get(event.getClass())) {
             Method method = listener.getMethod();
-            System.out.println("Invoking!");
             try {
                 method.invoke(listener.getCaller(), event);
             } catch (Exception e) {
